@@ -14,7 +14,8 @@ function PrincipalHotel() {
   let servicios = "Tenemos 2 servicios nomas.";
   let ubicacion = "link";
 
-  let imagenes= [
+  let imagenes = [
+    "https://mdbootstrap.com/img/new/slides/041.jpg",
     "https://a0.muscache.com/im/pictures/miso/Hosting-43333686/original/b6f40ac4-3468-443e-81d8-ce3b6f526943.jpeg?im_w=720",
     "https://mdbootstrap.com/img/new/slides/042.jpg",
     "https://mdbootstrap.com/img/new/slides/043.jpg",
