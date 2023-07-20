@@ -7,25 +7,20 @@ export default function CarruselVistaInf({ imagenes }) {
   const imgs = () => {
     // eslint-disable-next-line react/prop-types
     return imagenes.map((name) => (
-      <>
-        <MDBCarouselItem
-          key={num}
-          className="w-100 d-block"
-          itemId={num++}
-          src={name}
-          width={"500"}
-          height={"300"}
-        />        
-      </>
+      <MDBCarouselItem
+        key={num++}
+        className="w-100 d-block"
+        itemId={num++}
+        src={name}
+        width={"500"}
+        height={"300"}
+      />
     ));
   };
-
   return (
     <>
       <div>
-        <MDBCarousel showControls showIndicators>
-          {imgs()}
-        </MDBCarousel>
+        <MDBCarousel showControls>{imgs()}</MDBCarousel>
       </div>
     </>
   );
