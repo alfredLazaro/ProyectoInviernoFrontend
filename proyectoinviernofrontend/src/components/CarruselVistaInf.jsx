@@ -1,9 +1,8 @@
 import React from "react";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 // eslint-disable-next-line react/prop-types
-export default function CarruselVistaInf({ imagenes }) {
-  let num = 0;
-  console.log(imagenes);
+export default function CarruselVistaInf({ imagenes,ancho, largo }) {
+  let num = 0;  
   const imgs = () => {
     // eslint-disable-next-line react/prop-types
     return imagenes.map((name) => (
@@ -12,8 +11,9 @@ export default function CarruselVistaInf({ imagenes }) {
         className="w-100 d-block"
         itemId={num++}
         src={name}
-        width={"500"}
-        height={"300"}
+        width={ancho}
+        height={largo}
+        style={{ padding: "1em" }}
       />
     ));
   };
