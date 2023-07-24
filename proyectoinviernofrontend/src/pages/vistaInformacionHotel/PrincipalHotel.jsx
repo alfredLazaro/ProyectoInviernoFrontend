@@ -1,25 +1,54 @@
-import React from "react";
 import NavBar from "../../components/NavBar";
 import "./PrincipalHotel.css";
 import CarruselVistaInf from "../../components/CarruselVistaInf";
+import React, { useEffect, useState } from "react";
+import ReactLoading from "react-loading";
+import axios from "axios";
 
 function PrincipalHotel() {
-  let nombre = "Daniels Hotel";
+  const [data, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  let idHotel = 4;
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/inf/alojamiento/${idHotel}`)
+      .then((response) => {
+        setPost(response.data);
+        console.log(response.data);
+        setLoading(false);
+      });
+  }, []);
+  if (loading) {
+    return (
+      <div className="main">
+        <div className="showTournamentTitle">
+          <div
+            className="d-flex justify-content-center align-items-center "
+            style={{ height: "100", fontWeight: "bold", margin: "10px" }}
+          >
+            <ReactLoading
+              type={"bubbles"}
+              color={"#fffff"}
+              height={100}
+              width={100}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  let nombre = data.nombre;
   let encargado = "Alejandro";
   let cantidadHuespedes = "12";
   let cantidadCamas = "1";
   let banios = 1;
   let descripcion =
     "Bienvenido al lujoso Hotel Oasis del Mar, un paraíso vacacional situado en la impresionante costa de una isla tropical. Este magnífico resort de cinco estrellas es el lugar ideal para aquellos que buscan un escape inolvidable y relajante.";
-  let servicios = "Tenemos 2 servicios nomas.";
-  let ubicacion = "link";
+  let servicios = 123;
+  let ubicacion = data.ubicacion.nombre_ubicacion;
 
-  let imagenes = [
-    "https://mdbootstrap.com/img/new/slides/041.jpg",
-    "https://a0.muscache.com/im/pictures/miso/Hosting-43333686/original/b6f40ac4-3468-443e-81d8-ce3b6f526943.jpeg?im_w=720",
-    "https://mdbootstrap.com/img/new/slides/042.jpg",
-    "https://mdbootstrap.com/img/new/slides/043.jpg",
-  ];
+  let imagenes = data.imagenes.map((imagen) => imagen.imgenen_establecimiento);
 
   function cardVistaInf() {
     return (
