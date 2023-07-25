@@ -1,0 +1,12 @@
+/* styles/MapView.css */
+
+/* Establece el tamaño del contenedor del mapa para que ocupe la mitad del ancho */
+.MapContainer {
+  margin: 0 auto;
+}
+
+.leaflet-container{
+  margin: 0 auto;
+  height: 70vh;
+  width: 70vw;
+}
