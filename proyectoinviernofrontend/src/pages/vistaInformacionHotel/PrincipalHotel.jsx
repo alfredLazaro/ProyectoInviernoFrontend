@@ -9,10 +9,10 @@ function PrincipalHotel() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  let idHotel = 4;
+  let idHotel = 1;
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/inf/alojamiento/${idHotel}`)
+      .get(`http://localhost:8080/inf/alojamiento/es/${idHotel}`)
       .then((response) => {
         setPost(response.data);
         console.log(response.data);
@@ -38,17 +38,24 @@ function PrincipalHotel() {
       </div>
     );
   }
-  let nombre = data.nombre;
-  let encargado = "Alejandro";
+  console.log(data);
+  let nombre = data.establecimientos[0].nombre;
+  let encargado = data.nombre;
   let cantidadHuespedes = "12";
   let cantidadCamas = "1";
   let banios = 1;
   let descripcion =
-    "Bienvenido al lujoso Hotel Oasis del Mar, un paraíso vacacional situado en la impresionante costa de una isla tropical. Este magnífico resort de cinco estrellas es el lugar ideal para aquellos que buscan un escape inolvidable y relajante.";
-  let servicios = 123;
-  let ubicacion = data.ubicacion.nombre_ubicacion;
-
-  let imagenes = data.imagenes.map((imagen) => imagen.imgenen_establecimiento);
+    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
+      (servicio) => servicio.tipoServicio
+    );
+  let servicios =
+    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
+      (servicio) => servicio.nombreServicio
+    );
+  let ubicacion = data.establecimientos[0].ubicacion.nombre_ubicacion;
+  let imagenes = data.establecimientos[0].imagenes.map(
+    (imagen) => imagen.imgenen_establecimiento
+  );
 
   function cardVistaInf() {
     return (
