@@ -1,0 +1,13 @@
+.formContainer {
+    padding: 0 10%;
+}
+
+
+.formPlace {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #2F9380;
+    border-width: 5px;
+    padding: 4%;
+}
