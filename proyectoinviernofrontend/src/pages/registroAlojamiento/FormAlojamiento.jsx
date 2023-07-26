@@ -1,51 +1,87 @@
 import NavBar from "../../components/NavBar";
 import "./FormAlojamiento.css";
 import React from "react";
+import TextField from "../../components/Forms/TextField";
+import TextArea from "../../components/Forms/TextArea";
+import TimeField from "../../components/Forms/TimeField";
+import axios from "axios";
 
 
 function FormAlojamiento() {
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        /* Mostrado en consola de todos los campos de form
+        const formData = new FormData(form);
+        const formJson = Object.fromEntries(formData.entries());
+        console.log(formJson);*/
+
+        let housingData = {
+            encargado: {
+                id: 1
+            },
+            porcentajeReserva: 25,
+            precioAlojamiento: 150,
+            descripcion: form.description.value,
+            horaApertura: form.timeIn.value+":00",
+            horaCierre: form.timeOut.value+":00",
+            nombre: form.name.value
+        }
+
+        console.log(housingData)
+
+        // Llamada a API para registro
+        try {
+            await axios.post("http://localhost:8080/inf/alojamiento", housingData);
+            alert("Registro correcto");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function cancelForm(e) {
+        e.preventDefault();
+        console.log("Cancelar")
+    }
+
     return (
         <div>
             <NavBar />
             <div className="formContainer">
                 <h1>Registro de nuevo alojamiento</h1>
-                <form className="formPlace">
+                <form className="formPlace" onSubmit={handleSubmit}>
                     <h2>Formulario de Registro de Datos</h2>
                     <div className="row">
-                        <div className="col">
-                            <span>Nombre de Alojamiento: </span>
-                            <input type="text" />
-                            <span>Nombre de la Ubicación:</span>
-                            <input type="text" />
-                            <span>Descripcion del Alojamiento:</span>
-                            <textarea name="" id="" cols="30" rows="5"></textarea>
-                            <span>Detalles del Alojamiento:</span>
-                            <input type="text" />
+                        <div className="col m-3">
+                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} />
+                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} />
+                            <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} />
+                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} />
                         </div>
-                        <div className="col">
-                            <span>Ubicacion en mapa: </span>
-                            <input type="text" />
+                        <div className="col m-3">
+                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} />
                             <div className="row">
                                 <div className="col">
-                                    <span>Hora entrada:</span>
-                                    <input type="time" />
+                                    <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} />
                                 </div>
                                 <div className="col">
-                                    <span>Hora salida:</span>
-                                    <input type="time" />
+                                    <TimeField fieldName={"Hora salida"} inputName={"timeOut"} />
                                 </div>
                             </div>
-                            <span>Imágenes del Alojamiento:</span>
-                            <button>Subir Imagen</button>
-                            <section>
-                                <li>Image 1</li>
-                                <li>Image 1</li>
-                            </section>
+                            <div className="mb-2 mt-2">
+                                <label className="form-label">Imágenes del Alojamiento:</label>
+                                <button className="btn btn-primary" onClick={cancelForm}>Subir Imagen</button>
+                                <section className="imageSection">
+                                    <li>Image 1</li>
+                                    <li>Image 1</li>
+                                </section>
+                            </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <button>Completar Registro</button>
-                        <button>Cancelar</button>
+                    <div>
+                        <button className="btn btn-primary">Completar Registro</button>
+                        <button className="btn btn-primary" onClick={cancelForm}>Cancelar</button>
                     </div>
                 </form>
             </div>
