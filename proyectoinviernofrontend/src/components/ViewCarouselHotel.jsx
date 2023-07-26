@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBCarousel, MDBCarouselItem } from "mdb-react-ui-kit";
 // eslint-disable-next-line react/prop-types
-export default function CarruselVistaInf({ imagenes,ancho, largo }) {
+export default function ViewCarouselHotel({ imagenes,ancho, largo }) {
   let num = 0;  
   const imgs = () => {
     // eslint-disable-next-line react/prop-types

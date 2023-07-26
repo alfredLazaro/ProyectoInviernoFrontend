@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import "./App.css";
 import React from 'react';
-import PrincipalHotel from "./pages/vistaInformacionHotel/PrincipalHotel";
+import PrincipalHotel from "./pages/viewInformationHotel/PrincipalHotel";
 
 function App() {
   return (

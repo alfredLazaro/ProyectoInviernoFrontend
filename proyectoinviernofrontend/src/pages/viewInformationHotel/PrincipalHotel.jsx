@@ -1,9 +1,10 @@
 import NavBar from "../../components/NavBar";
 import "./PrincipalHotel.css";
-import CarruselVistaInf from "../../components/CarruselVistaInf";
+import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import axios from "axios";
+
 
 function PrincipalHotel() {
   const [data, setPost] = useState([]);
@@ -67,7 +68,7 @@ function PrincipalHotel() {
           <div className=" col-md-4 card m-5  ">
             <div className="cardInfHotelMargenNegrilla">
               <h4>{nombre}</h4>
-              <CarruselVistaInf imagenes={imagenes} ancho={250} largo={200} />
+              <ViewCarouselHotel imagenes={imagenes} ancho={250} largo={200} />
 
               <h5>
                 Encargado: <span>{encargado}</span>{" "}
