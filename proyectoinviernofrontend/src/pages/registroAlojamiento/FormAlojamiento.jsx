@@ -1,6 +1,6 @@
 import NavBar from "../../components/NavBar";
 import "./FormAlojamiento.css";
-import React from "react";
+import React, { useState } from "react";
 import TextField from "../../components/Forms/TextField";
 import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
@@ -8,6 +8,16 @@ import axios from "axios";
 
 
 function FormAlojamiento() {
+
+    const [files, setFiles] = useState([]);
+
+    function loadImages(e) {
+        const loadedFiles = Array.from(e.target.files);
+        setFiles(loadedFiles);
+
+        console.log(loadedFiles);
+    }
+    
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -24,8 +34,8 @@ function FormAlojamiento() {
             porcentajeReserva: 25,
             precioAlojamiento: 150,
             descripcion: form.description.value,
-            horaApertura: form.timeIn.value+":00",
-            horaCierre: form.timeOut.value+":00",
+            horaApertura: form.timeIn.value + ":00",
+            horaCierre: form.timeOut.value + ":00",
             nombre: form.name.value
         }
 
@@ -44,6 +54,7 @@ function FormAlojamiento() {
         e.preventDefault();
         console.log("Cancelar")
     }
+
 
     return (
         <div>
@@ -71,12 +82,14 @@ function FormAlojamiento() {
                             </div>
                             <div className="mb-2 mt-2">
                                 <label className="form-label">Imágenes del Alojamiento:</label>
-                                <button className="btn btn-primary" onClick={cancelForm}>Subir Imagen</button>
-                                <section className="imageSection">
-                                    <li>Image 1</li>
-                                    <li>Image 1</li>
-                                </section>
+                                <input type="file" multiple  onChange={loadImages}/>
                             </div>
+                            <button className="btn btn-primary" onClick={cancelForm}>Subir Imagen</button>
+                            <section className="imageSection">
+                                <ul>
+                                    {files.map(file => { return(<li key={file.name}>{file.name}</li>)})}
+                                </ul>
+                            </section>
                         </div>
                     </div>
                     <div>
