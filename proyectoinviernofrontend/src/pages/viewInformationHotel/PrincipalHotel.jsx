@@ -10,7 +10,7 @@ function PrincipalHotel() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  let idHotel = 1;
+  let idHotel = 3;
   useEffect(() => {
     axios
       .get(`http://localhost:8080/inf/alojamiento/es/${idHotel}`)
@@ -40,22 +40,22 @@ function PrincipalHotel() {
     );
   }
   console.log(data);
-  let nombre = data.establecimientos[0].nombre;
-  let encargado = data.nombre;
+  let nombre = data.establishments[0].name;
+  let encargado = data.name;
   let cantidadHuespedes = "12";
   let cantidadCamas = "1";
   let banios = 1;
-  let descripcion =
-    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
+  let descripcion =data.establishments[0].description;
+    data.establishments[0].establishmentPackages[0].establishmentServices.map(
       (servicio) => servicio.tipoServicio
     );
   let servicios =
-    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
-      (servicio) => servicio.nombreServicio
+    data.establishments[0].establishmentPackages[0].establishmentServices.map(
+      (servicio) => servicio.serviceName
     );
-  let ubicacion = data.establecimientos[0].ubicacion.nombre_ubicacion;
-  let imagenes = data.establecimientos[0].imagenes.map(
-    (imagen) => imagen.imgenen_establecimiento
+  let ubicacion = data.establishments[0].location.location_name;
+  let imagenes = data.establishments[0].pictures.map(
+    (imagen) => imagen.establishment_picture
   );
 
   function cardVistaInf() {
