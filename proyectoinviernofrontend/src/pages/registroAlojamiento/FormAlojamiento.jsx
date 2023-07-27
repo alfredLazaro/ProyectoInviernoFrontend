@@ -28,15 +28,16 @@ function FormAlojamiento() {
         console.log(formJson);*/
 
         let housingData = {
-            encargado: {
+            responsiblePerson: {
                 id: 1
             },
-            porcentajeReserva: 25,
-            precioAlojamiento: 150,
-            descripcion: form.description.value,
-            horaApertura: form.timeIn.value + ":00",
-            horaCierre: form.timeOut.value + ":00",
-            nombre: form.name.value
+            description: form.description.value,
+            openingTime: form.timeIn.value + ":00",
+            closing_time: form.timeOut.value + ":00",
+            name: form.name.value,
+            price_accommodation: 150,
+            reservationPercentage: 25,
+            detailsAccomodation: form.details.value
         }
 
         console.log(housingData)
