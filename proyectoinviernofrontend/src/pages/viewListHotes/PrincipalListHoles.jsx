@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import CardHotel from "./CardHotel";
+import NavBar from "../../components/NavBar";
 
 export default function PrincipalListHoteles() {
   const [data, setPost] = useState([]);
@@ -55,6 +56,7 @@ export default function PrincipalListHoteles() {
   return (
     <>
       <div className="main">
+        <NavBar />
         <div className="container">
           <div className="row">{createdCards}</div>
         </div>

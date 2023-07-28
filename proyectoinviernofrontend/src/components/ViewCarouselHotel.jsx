@@ -22,8 +22,8 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
       <div>
         <Carousel
           data={imgs}
-          time={5000}
-          width="850px"
+          time={2000}
+          width="500px"
           height="200px"
           captionStyle={captionStyle}
           radius="10px"
