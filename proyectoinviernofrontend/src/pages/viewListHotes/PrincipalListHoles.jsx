@@ -48,13 +48,17 @@ export default function PrincipalListHoteles() {
         )}
         ubicacion={establishments.location.location_name}
         nombre={establishments.name}
-      ></CardHotel>
+      />
     </>
   ));
 
   return (
     <>
-      <div>{createdCards}</div>
+      <div className="main">
+        <div className="container">
+          <div className="row">{createdCards}</div>
+        </div>
+      </div>
     </>
   );
 }
