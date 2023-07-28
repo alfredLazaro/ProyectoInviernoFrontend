@@ -33,33 +33,28 @@ export default function PrincipalListHoteles() {
       </div>
     );
   }
-  let nombre = data.establishments[0].name;  
-  let descripcion = data.establishments[0].description;
-  data.establishments[0].establishmentPackages[0].establishmentServices.map(
-    (servicio) => servicio.tipoServicio
-  );
-  let servicios =
-    data.establishments[0].establishmentPackages[0].establishmentServices.map(
-      (servicio) => servicio.serviceName
-    );
-  let ubicacion = data.establishments[0].location.location_name;
-  let imagenes = data.establishments[0].pictures.map(
-    (imagen) => imagen.establishment_picture
-  );
+
+  const createdCards = data.map((establishments) => (
+    <>
+      <CardHotel
+        imagenes={establishments.pictures.map(
+          (imagen) => imagen.establishment_picture
+        )}
+        ancho={300}
+        alto={250}
+        descripcion={establishments.description}
+        servicios={establishments.establishmentPackages.map((services) =>
+          services.establishmentServices.map((servicio) => servicio.serviceName)
+        )}
+        ubicacion={establishments.location.location_name}
+        nombre={establishments.name}
+      ></CardHotel>
+    </>
+  ));
 
   return (
     <>
-      <div>
-        <CardHotel
-          imagenes={imagenes}
-          ancho={300}
-          alto={250}
-          descripcion={descripcion}
-          servicios={servicios}
-          ubicacion={ubicacion}
-          nombre={nombre}
-        ></CardHotel>
-      </div>
+      <div>{createdCards}</div>
     </>
   );
 }
