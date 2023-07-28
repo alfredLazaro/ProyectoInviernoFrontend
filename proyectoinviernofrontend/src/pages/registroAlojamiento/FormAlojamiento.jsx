@@ -44,7 +44,8 @@ function FormAlojamiento() {
 
         // Llamada a API para registro
         try {
-            await axios.post("http://localhost:8080/inf/alojamiento", housingData);
+            let API_URL = "http://localhost:8080/inf/alojamiento";
+            await axios.post(API_URL, housingData);
             alert("Registro correcto");
         } catch (error) {
             console.log(error);
@@ -52,8 +53,27 @@ function FormAlojamiento() {
     }
 
     function cancelForm(e) {
-        e.preventDefault();
+        e.preventDefault()
         console.log("Cancelar")
+    }
+
+    async function uploadImages(e) {
+        e.preventDefault()
+        const imageData = new FormData()
+        for (const key of Object.keys(files)) {
+            imageData.append('images', files[key]);
+        }
+        console.log(imageData)
+        try {
+            let API_URL = "http://localhost:8080/image/fileSystem";
+            await axios.post(API_URL, imageData)
+            .then((response) => {
+                console.log(response.data)
+            })
+            alert("Registro correcto");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -85,7 +105,7 @@ function FormAlojamiento() {
                                 <label className="form-label">Imágenes del Alojamiento:</label>
                                 <input type="file" multiple  onChange={loadImages}/>
                             </div>
-                            <button className="btn btn-primary" onClick={cancelForm}>Subir Imagen</button>
+                            <button className="btn btn-primary" onClick={uploadImages}>Subir Imagen</button>
                             <section className="imageSection">
                                 <ul>
                                     {files.map(file => { return(<li key={file.name}>{file.name}</li>)})}
