@@ -13,8 +13,8 @@ export default function CardHotel({
   nombre,
 }) {
   return (
-    <div>
-      <div className="col-md-4 m-3">
+    <>
+      <div className="col-md-3">
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
             <h4>{nombre}</h4>
@@ -39,6 +39,6 @@ export default function CardHotel({
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
