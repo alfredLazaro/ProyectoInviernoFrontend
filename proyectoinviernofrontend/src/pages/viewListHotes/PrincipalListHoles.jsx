@@ -41,8 +41,8 @@ export default function PrincipalListHoteles() {
         imagenes={establishments.pictures.map(
           (imagen) => imagen.establishment_picture
         )}
-        ancho={300}
-        alto={250}
+        ancho={100}
+        alto={200}
         descripcion={establishments.description}
         servicios={establishments.establishmentPackages.map((services) =>
           services.establishmentServices.map((servicio) => servicio.serviceName)

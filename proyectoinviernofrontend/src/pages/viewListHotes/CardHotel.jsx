@@ -14,7 +14,7 @@ export default function CardHotel({
 }) {
   return (
     <>
-      <div className="col-md-3">
+      <div className="col-md-4 col-sm-6" style={{ marginBottom: "1em" }}>
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
             <h4>{nombre}</h4>
@@ -23,19 +23,25 @@ export default function CardHotel({
               ancho={ancho}
               largo={alto}
             ></ViewCarouselHotel>
-            <h5>
-              Encargado: <span>{encargado}</span>{" "}
-            </h5>
+            <h6>
+              Encargado:
+              <span>
+                <p>{encargado}</p>
+              </span>
+            </h6>
 
-            <h5>
-              Descripcion: <span>{descripcion}</span>
-            </h5>
-            <h5>
+            <h6>
+              Descripcion:
+              <span>                
+                <p>{descripcion}</p>
+              </span>
+            </h6>
+            <h6>
               Servicios: <span>{servicios}</span>
-            </h5>
-            <h5>
+            </h6>
+            <h6>
               Ubicacion: <span>{ubicacion}</span>
-            </h5>
+            </h6>
           </div>
         </div>
       </div>
