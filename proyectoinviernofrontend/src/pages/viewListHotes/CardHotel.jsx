@@ -20,10 +20,8 @@ export default function CardHotel({
   }
   return (
     <>
-      <div
-        onClick={redirectToHotel}
-        className="col-md-4 col-sm-6"
-        id={id}
+      <div        
+        className="col-md-4 col-sm-6"        
         style={{ marginBottom: "1em" }}
       >
         <div className="card">
