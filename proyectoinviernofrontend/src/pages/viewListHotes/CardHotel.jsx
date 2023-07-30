@@ -11,10 +11,21 @@ export default function CardHotel({
   servicios,
   ubicacion,
   nombre,
+  id,
 }) {
+  function redirectToHotel(event) {
+    console.log(event.target.id);
+    localStorage.setItem("idViewHotel", event.target.id);
+    window.location = "/infhotel";
+  }
   return (
     <>
-      <div className="col-md-4 col-sm-6" style={{ marginBottom: "1em" }}>
+      <div
+        onClick={redirectToHotel}
+        className="col-md-4 col-sm-6"
+        id={id}
+        style={{ marginBottom: "1em" }}
+      >
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
             <h4>{nombre}</h4>
@@ -32,7 +43,7 @@ export default function CardHotel({
 
             <h6>
               Descripcion:
-              <span>                
+              <span>
                 <p>{descripcion}</p>
               </span>
             </h6>
@@ -42,6 +53,9 @@ export default function CardHotel({
             <h6>
               Ubicacion: <span>{ubicacion}</span>
             </h6>
+            <button id={id} onClick={redirectToHotel} style={{ width: "3em" }}>
+              ver
+            </button>
           </div>
         </div>
       </div>

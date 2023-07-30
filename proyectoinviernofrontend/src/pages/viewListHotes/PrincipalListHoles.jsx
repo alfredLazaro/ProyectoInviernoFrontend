@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import CardHotel from "./CardHotel";
-import NavBar from "../../components/NavBar";
 
 export default function PrincipalListHoteles() {
   const [data, setPost] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(true);  
   useEffect(() => {
     axios.get(`http://localhost:8080/inf/alojamiento`).then((response) => {
       setPost(response.data);
@@ -38,6 +36,7 @@ export default function PrincipalListHoteles() {
   const createdCards = data.map((establishments) => (
     <>
       <CardHotel
+        encargado = {data.name}
         imagenes={establishments.pictures.map(
           (imagen) => imagen.establishment_picture
         )}
@@ -49,14 +48,14 @@ export default function PrincipalListHoteles() {
         )}
         ubicacion={establishments.location.location_name}
         nombre={establishments.name}
+        id={establishments.idEstablishment}
       />
     </>
   ));
 
   return (
     <>
-      <div className="main">
-        <NavBar />
+      <div className="main">        
         <div className="container">
           <div className="row">{createdCards}</div>
         </div>

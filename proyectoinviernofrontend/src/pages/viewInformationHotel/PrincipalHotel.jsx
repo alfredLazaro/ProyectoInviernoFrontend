@@ -1,4 +1,3 @@
-import NavBar from "../../components/NavBar";
 import "./PrincipalHotel.css";
 import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 import React, { useEffect, useState } from "react";
@@ -10,7 +9,7 @@ function PrincipalHotel() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  let idHotel = 3;
+  let idHotel = localStorage.getItem("idViewHotel")
   useEffect(() => {
     axios
       .get(`http://localhost:8080/inf/alojamiento/es/${idHotel}`)
@@ -101,8 +100,7 @@ function PrincipalHotel() {
 
   return (
     <>
-      <div>
-        <NavBar />
+      <div>        
         <div className="container">{cardVistaInf()}</div>
       </div>
     </>
