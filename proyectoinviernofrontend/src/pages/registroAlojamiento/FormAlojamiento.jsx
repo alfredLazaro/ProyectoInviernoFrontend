@@ -11,6 +11,10 @@ function FormAlojamiento() {
 
     const [files, setFiles] = useState([]);
 
+    const BACK_URL = "http://localhost:8080/"
+
+    const responsibleId = 1
+
     function loadImages(e) {
         const loadedFiles = Array.from(e.target.files);
         setFiles(loadedFiles);
@@ -29,7 +33,7 @@ function FormAlojamiento() {
 
         let housingData = {
             responsiblePerson: {
-                id: 1
+                id: responsibleId
             },
             description: form.description.value,
             openingTime: form.timeIn.value + ":00",
@@ -37,16 +41,16 @@ function FormAlojamiento() {
             name: form.name.value,
             price_accommodation: 150,
             reservationPercentage: 25,
-            detailsAccomodation: form.details.value
+            detailsAccommodation: form.details.value
         }
-
-        console.log(housingData)
 
         // Llamada a API para registro
         try {
-            let API_URL = "http://localhost:8080/inf/alojamiento";
-            await axios.post(API_URL, housingData);
-            alert("Registro correcto");
+            let API_URL = BACK_URL+"inf/alojamiento";
+            await axios.post(API_URL, housingData)
+            .then((response) => {
+                uploadImages(response.data.idEstablishment)
+            });
         } catch (error) {
             console.log(error);
         }
@@ -57,20 +61,18 @@ function FormAlojamiento() {
         console.log("Cancelar")
     }
 
-    async function uploadImages(e) {
-        e.preventDefault()
+    async function uploadImages(idEstablishment) {
         const imageData = new FormData()
         for (const key of Object.keys(files)) {
             imageData.append('images', files[key]);
         }
-        console.log(imageData)
+        imageData.append('id_establishment', idEstablishment)
         try {
-            let API_URL = "http://localhost:8080/image/fileSystem";
+            let API_URL = BACK_URL+"image/fileSystem";
             await axios.post(API_URL, imageData)
             .then((response) => {
                 console.log(response.data)
             })
-            alert("Registro correcto");
         } catch (error) {
             console.log(error);
         }
@@ -78,6 +80,7 @@ function FormAlojamiento() {
 
 
     return (
+        
         <div>
             <NavBar />
             <div className="formContainer">
@@ -103,9 +106,9 @@ function FormAlojamiento() {
                             </div>
                             <div className="mb-2 mt-2">
                                 <label className="form-label">Imágenes del Alojamiento:</label>
-                                <input type="file" multiple  onChange={loadImages}/>
+                                <input type="file" multiple  onChange={loadImages} alt="algo"/>
                             </div>
-                            <button className="btn btn-primary" onClick={uploadImages}>Subir Imagen</button>
+                            <button className="btn btn-primary">Subir Imagen</button>
                             <section className="imageSection">
                                 <ul>
                                     {files.map(file => { return(<li key={file.name}>{file.name}</li>)})}
