@@ -9,7 +9,11 @@ import axios from "axios";
 
 function FormAlojamiento() {
 
+    // Archivos de imagen
     const [files, setFiles] = useState([]);
+
+    // Manejo de errores
+    const [nameAlert, setNameAlert] = useState("")
 
     const BACK_URL = "http://localhost:8080/"
 
@@ -26,10 +30,9 @@ function FormAlojamiento() {
         e.preventDefault();
 
         const form = e.target;
-        /* Mostrado en consola de todos los campos de form
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);*/
+        if(!validateData(form)){
+            return; //Sale de programa
+        }
 
         let housingData = {
             responsiblePerson: {
@@ -39,8 +42,8 @@ function FormAlojamiento() {
             openingTime: form.timeIn.value + ":00",
             closing_time: form.timeOut.value + ":00",
             name: form.name.value,
-            price_accommodation: 150,
-            reservationPercentage: 25,
+            price_accommodation: form.price.value,
+            reservationPercentage: form.prepay.value,
             detailsAccommodation: form.details.value
         }
 
@@ -54,6 +57,17 @@ function FormAlojamiento() {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    function validateData(form){
+        //Validar nombre
+        if(form.name.value === ""){
+            setNameAlert("Campo no puede estar vacio")
+            return false;
+        }else{
+            setNameAlert("")
+        }
+        return true;
     }
 
     function cancelForm(e) {
@@ -89,13 +103,13 @@ function FormAlojamiento() {
                     <h2>Formulario de Registro de Datos</h2>
                     <div className="row">
                         <div className="col m-3">
-                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} />
-                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} />
+                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert}/>
+                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"}/>
+                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"}/>
                             <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} />
-                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} />
                         </div>
                         <div className="col m-3">
-                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} />
+                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={""}/>
                             <div className="row">
                                 <div className="col">
                                     <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} />
@@ -104,11 +118,18 @@ function FormAlojamiento() {
                                     <TimeField fieldName={"Hora salida"} inputName={"timeOut"} />
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="col">
+                                    <TextField fieldName={"Precio de alojamiento"} inputName={"price"} placeholder={"Ej:150($)-Precio noche"}/>
+                                </div>
+                                <div className="col">
+                                    <TextField fieldName={"Porcentaje de reserva"} inputName={"prepay"} placeholder={"Ej:25(%)-Adelanto de precio"}/>
+                                </div>
+                            </div>
                             <div className="mb-2 mt-2">
                                 <label className="form-label">Imágenes del Alojamiento:</label>
-                                <input type="file" multiple  onChange={loadImages} alt="algo"/>
+                                <input type="file" multiple  onChange={loadImages} className="form-control"/>
                             </div>
-                            <button className="btn btn-primary">Subir Imagen</button>
                             <section className="imageSection">
                                 <ul>
                                     {files.map(file => { return(<li key={file.name}>{file.name}</li>)})}
@@ -118,7 +139,7 @@ function FormAlojamiento() {
                     </div>
                     <div>
                         <button className="btn btn-primary">Completar Registro</button>
-                        <button className="btn btn-primary" onClick={cancelForm}>Cancelar</button>
+                        <button className="btn " onClick={cancelForm}>Cancelar</button>
                     </div>
                 </form>
             </div>
