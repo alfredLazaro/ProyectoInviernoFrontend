@@ -32,7 +32,7 @@ function FormAlojamiento() {
 
         const form = e.target;
         if(!validateData(form)){
-            return; //Sale de programa
+            return; //Sale de función
         }
 
         let housingData = {
@@ -104,13 +104,13 @@ function FormAlojamiento() {
                     <h2>Formulario de Registro de Datos</h2>
                     <div className="row">
                         <div className="col m-3">
-                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert}/>
+                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={10}/>
                             <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"}/>
                             <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"}/>
                             <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} />
                         </div>
                         <div className="col m-3">
-                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={""}/>
+                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"}/>
                             <div className="row">
                                 <div className="col">
                                     <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} />
@@ -121,10 +121,10 @@ function FormAlojamiento() {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <NumberField fieldName={"Precio de alojamiento"} inputName={"price"}/>
+                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"}/>
                                 </div>
                                 <div className="col">
-                                    <NumberField fieldName={"Porcentaje de reserva"} inputName={"prepay"}/>
+                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"}/>
                                 </div>
                             </div>
                             <div className="mb-2 mt-2">
