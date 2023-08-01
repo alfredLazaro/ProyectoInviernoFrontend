@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import TextField from "../../components/Forms/TextField";
 import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
+import NumberField from "../../components/Forms/NumberField";
 import axios from "axios";
 
 
@@ -120,10 +121,10 @@ function FormAlojamiento() {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <TextField fieldName={"Precio de alojamiento"} inputName={"price"} placeholder={"Ej:150($)-Precio noche"}/>
+                                    <NumberField fieldName={"Precio de alojamiento"} inputName={"price"}/>
                                 </div>
                                 <div className="col">
-                                    <TextField fieldName={"Porcentaje de reserva"} inputName={"prepay"} placeholder={"Ej:25(%)-Adelanto de precio"}/>
+                                    <NumberField fieldName={"Porcentaje de reserva"} inputName={"prepay"}/>
                                 </div>
                             </div>
                             <div className="mb-2 mt-2">
