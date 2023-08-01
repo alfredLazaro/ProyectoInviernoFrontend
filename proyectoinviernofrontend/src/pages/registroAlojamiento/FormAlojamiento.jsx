@@ -13,8 +13,11 @@ function FormAlojamiento() {
     // Archivos de imagen
     const [files, setFiles] = useState([]);
 
-    // Manejo de errores
+    // Manejo de errores en formulario
     const [nameAlert, setNameAlert] = useState("")
+    const [locatNameAlert, setLocatNameAlert] = useState("")
+    const [detailsAlert, setDetailsAlert] = useState("")
+    const [descripAlert, setDescripAlert] = useState("")
 
     const BACK_URL = "http://localhost:8080/"
 
@@ -26,12 +29,23 @@ function FormAlojamiento() {
 
         console.log(loadedFiles);
     }
-    
+
     async function handleSubmit(e) {
         e.preventDefault();
 
         const form = e.target;
-        if(!validateData(form)){
+
+        // Mostrar los valores de formulario
+        /*const formData = new FormData(form);
+
+        const formDataObject = {};
+        formData.forEach((value, name) => {
+            formDataObject[name] = value;
+        });
+        console.log(formDataObject);*/
+
+
+        if (!validateData(form)) {
             return; //Sale de función
         }
 
@@ -50,25 +64,72 @@ function FormAlojamiento() {
 
         // Llamada a API para registro
         try {
-            let API_URL = BACK_URL+"inf/alojamiento";
+            let API_URL = BACK_URL + "inf/alojamiento";
             await axios.post(API_URL, housingData)
-            .then((response) => {
-                uploadImages(response.data.idEstablishment)
-            });
+                .then((response) => {
+                    uploadImages(response.data.idEstablishment)
+                });
         } catch (error) {
             console.log(error);
         }
     }
 
-    function validateData(form){
-        //Validar nombre
-        if(form.name.value === ""){
-            setNameAlert("Campo no puede estar vacio")
-            return false;
-        }else{
-            setNameAlert("")
+    function validateData(form) {
+        let validated = true;
+        let alert = "";
+
+        // Mensajes de error
+        //let negativeAlert = "Este campo solo permite números positivos"
+        //let emptyAlert = "Este campo no se pude dejar vacio"
+        let errors = {
+            blankAlert: "Este campo no se puede llenar solamente con espacios",
+            onlyLettersAlert: "Solo se permiten letras, comas y puntos en este campo",
+            emptyAlert: "Este campo no se pude dejar vacio",
+            negativeAlert: "Este campo solo permite números positivos"
         }
-        return true;
+
+        // Validar campos de texto
+        alert = validateTextInput(form.name.value, errors)
+        setNameAlert(alert)
+
+        alert = validateTextInput(form.locationName.value, errors)
+        setLocatNameAlert(alert)
+
+        alert = validateTextInput(form.details.value, errors)
+        setDetailsAlert(alert)
+
+        alert = validateTextInput(form.description.value, errors)
+        setDescripAlert(alert)
+
+        // Validar hora entrada
+
+        // Validar hora salida
+
+        // Validar precio
+
+        // Validar porcentaje reserva
+
+        // Validar imágenes
+
+        if (alert !== "") {
+            validated = false;
+        }
+        return validated;
+    }
+
+    function validateTextInput(text, errors) {
+        let alert = "";
+
+        let regex = /^[a-zA-Z,.]+$/
+        if (text === "") {
+            alert = errors.emptyAlert;
+        } else if (text.trim() === "") {
+            alert = errors.blankAlert;
+        } else if (!regex.test(text.trim())) {
+            alert = errors.onlyLettersAlert;
+        }
+
+        return alert;
     }
 
     function cancelForm(e) {
@@ -83,11 +144,11 @@ function FormAlojamiento() {
         }
         imageData.append('id_establishment', idEstablishment)
         try {
-            let API_URL = BACK_URL+"image/fileSystem";
+            let API_URL = BACK_URL + "image/fileSystem";
             await axios.post(API_URL, imageData)
-            .then((response) => {
-                console.log(response.data)
-            })
+                .then((response) => {
+                    console.log(response.data)
+                })
         } catch (error) {
             console.log(error);
         }
@@ -95,7 +156,7 @@ function FormAlojamiento() {
 
 
     return (
-        
+
         <div>
             <NavBar />
             <div className="formContainer">
@@ -104,13 +165,13 @@ function FormAlojamiento() {
                     <h2>Formulario de Registro de Datos</h2>
                     <div className="row">
                         <div className="col m-3">
-                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30}/>
-                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"} maxLength={30}/>
-                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"} maxLength={50}/>
-                            <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} maxLength={150}/>
+                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30} />
+                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"} alert={locatNameAlert} maxLength={30} />
+                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"} alert={detailsAlert} maxLength={50} />
+                            <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} alert={descripAlert} maxLength={150} />
                         </div>
                         <div className="col m-3">
-                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"}/>
+                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"} />
                             <div className="row">
                                 <div className="col">
                                     <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} />
@@ -121,19 +182,19 @@ function FormAlojamiento() {
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"}/>
+                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"} />
                                 </div>
                                 <div className="col">
-                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"}/>
+                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"} />
                                 </div>
                             </div>
                             <div className="mb-2 mt-2">
                                 <label className="form-label">Imágenes del Alojamiento:</label>
-                                <input type="file" multiple  onChange={loadImages} className="form-control"/>
+                                <input type="file" multiple onChange={loadImages} className="form-control" />
                             </div>
                             <section className="imageSection">
                                 <ul>
-                                    {files.map(file => { return(<li key={file.name}>{file.name}</li>)})}
+                                    {files.map(file => { return (<li key={file.name}>{file.name}</li>) })}
                                 </ul>
                             </section>
                         </div>
