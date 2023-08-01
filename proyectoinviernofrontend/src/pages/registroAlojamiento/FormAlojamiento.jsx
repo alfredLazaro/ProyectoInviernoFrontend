@@ -104,10 +104,10 @@ function FormAlojamiento() {
                     <h2>Formulario de Registro de Datos</h2>
                     <div className="row">
                         <div className="col m-3">
-                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={10}/>
-                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"}/>
-                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"}/>
-                            <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} />
+                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30}/>
+                            <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"} maxLength={30}/>
+                            <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"} maxLength={50}/>
+                            <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} maxLength={150}/>
                         </div>
                         <div className="col m-3">
                             <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"}/>
@@ -140,7 +140,7 @@ function FormAlojamiento() {
                     </div>
                     <div>
                         <button className="btn btn-primary">Completar Registro</button>
-                        <button className="btn " onClick={cancelForm}>Cancelar</button>
+                        <button className="btn" onClick={cancelForm}>Cancelar</button>
                     </div>
                 </form>
             </div>
