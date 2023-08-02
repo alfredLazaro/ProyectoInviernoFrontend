@@ -4,20 +4,40 @@ import "./FormRestaurante.css";
 import TextField from '../../components/Forms/TextField';
 import TextArea from '../../components/Forms/TextArea';
 import TimeField from '../../components/Forms/TimeField';
-//import React, { useState } from "react";
-// import TextField from "../../components/Forms/TextField";
-// import TextArea from "../../components/Forms/TextArea";
-// import TimeField from "../../components/Forms/TimeField";
-// import axios from "axios";
+import axios from "axios";
 
 function FormRestaurante(){
     
+    async function handleSubmit(e){
+        e.preventDefault();
+        const info = e.target;
+        
+        
+        let data = {
+            name: info.name.value,
+            locationName: info.locationName.value,
+            descripton: info.description.value
+        } 
+
+        let url = "http://localhost:8080/restaurant/new"
+
+        axios.post(url, data)
+            .then(response => {
+                console.log('Respuesta del servidor:', response.data);
+            })
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error);
+             });
+
+        console.log(data);
+    }
+
     return(
         <div>
             <NavBar/>
             <div className="formContainer">
                 <h1>Registro nuevo restaurante</h1>
-                <form className="formPlace" onSubmit={null}>  
+                <form className="formPlace" onSubmit={handleSubmit}>  
                 {/* create function  handleSubmit */}
                    <h2>Formulario de registro</h2>
                     <div className='row'>
