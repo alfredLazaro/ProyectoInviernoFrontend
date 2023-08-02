@@ -1,4 +1,7 @@
-.alertForm {
-    color: red;
+.centerText {
     text-align: center;
+}
+
+.alertText {
+    color: red;
 }

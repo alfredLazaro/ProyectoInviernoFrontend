@@ -5,6 +5,7 @@ import TextField from "../../components/Forms/TextField";
 import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
 import NumberField from "../../components/Forms/NumberField";
+import FilesUpload from "../../components/Forms/FilesUpload";
 import axios from "axios";
 
 
@@ -18,7 +19,13 @@ function FormAlojamiento() {
     const [locatNameAlert, setLocatNameAlert] = useState("")
     const [detailsAlert, setDetailsAlert] = useState("")
     const [descripAlert, setDescripAlert] = useState("")
-
+    const [locatMapAlert, setLocatMapAlert] = useState("")
+    const [timeInAlert, setTimeInAlert] = useState("")
+    const [timeOutAlert, setTimeOutAlert] = useState("")
+    const [priceAlert, setPriceAlert] = useState("")
+    const [prepayAlert, setPrepayAlert] = useState("")
+    const [filesAlert, setFilesAlert] = useState("")
+    
     const BACK_URL = "http://localhost:8080/"
 
     const responsibleId = 1
@@ -76,44 +83,97 @@ function FormAlojamiento() {
 
     function validateData(form) {
         let validated = true;
+        let allAlerts = "";
         let alert = "";
 
         // Mensajes de error
-        //let negativeAlert = "Este campo solo permite números positivos"
-        //let emptyAlert = "Este campo no se pude dejar vacio"
         let errors = {
             blankAlert: "Este campo no se puede llenar solamente con espacios",
             onlyLettersAlert: "Solo se permiten letras, comas y puntos en este campo",
             emptyAlert: "Este campo no se pude dejar vacio",
-            negativeAlert: "Este campo solo permite números positivos"
+            negativeAlert: "Este campo solo permite números positivos",
+            linkAlert: "Solo se permiten enlaces en este campo",
+            timeOutAlert: "La hora de salida debe ser posterior a la de entrada",
+            range100Alert: "Este campo solo permite números en el rango de 0 hasta 100",
+            formatImagesAlert: "Solo se permiten imagenes con extensión: jpg, png y jpeg",
+            maxImagesAlert: "Se supero el limite máximo de 5 imágenes",
+            minImagesAlert: "Se debe registrar al menos 2 imágenes"
         }
 
         // Validar campos de texto
         alert = validateTextInput(form.name.value, errors)
         setNameAlert(alert)
+        allAlerts += alert
 
         alert = validateTextInput(form.locationName.value, errors)
         setLocatNameAlert(alert)
+        allAlerts += alert
 
         alert = validateTextInput(form.details.value, errors)
         setDetailsAlert(alert)
+        allAlerts += alert
 
         alert = validateTextInput(form.description.value, errors)
         setDescripAlert(alert)
+        allAlerts += alert
+
+        //Validar ubicacion (?)
+        alert = ""
+        const linkRegex = /^(http:\/\/|https:\/\/)[^\s]+$/i;
+        if(form.locationMap.value===""){
+            alert = errors.emptyAlert
+        }else if(!linkRegex.test(form.locationMap.value)){
+            alert = errors.linkAlert
+        }
+        setLocatMapAlert(alert)
+        allAlerts += alert
 
         // Validar hora entrada
+        alert = ""
+        if(form.timeIn.value===""){
+            alert = errors.emptyAlert
+        }
+        setTimeInAlert(alert)
+        allAlerts += alert
 
         // Validar hora salida
+        alert = ""
+        if(form.timeOut.value===""){
+            alert = errors.emptyAlert
+        }else if(form.timeOut.value <= form.timeIn.value){
+            alert = errors.timeOutAlert
+        }
+        setTimeOutAlert(alert)
+        allAlerts += alert
 
         // Validar precio
+        alert = ""
+        if(form.price.value===""){
+            alert = errors.emptyAlert
+        }else if(parseInt(form.price.value)<0){
+            alert = errors.negativeAlert
+        }
+        setPriceAlert(alert)
+        allAlerts += alert
 
         // Validar porcentaje reserva
+        alert = ""
+        if(form.prepay.value===""){
+            alert = errors.emptyAlert
+        }else if(parseInt(form.prepay.value)<0){
+            alert = errors.negativeAlert
+        }else if(parseInt(form.prepay.value)>100){
+            alert = errors.range100Alert
+        }
+        setPrepayAlert(alert)
+        allAlerts += alert
 
         // Validar imágenes
+        alert = validateImages(files, errors)
+        setFilesAlert(alert)
+        
+        if(allAlerts!=="")validated = false;
 
-        if (alert !== "") {
-            validated = false;
-        }
         return validated;
     }
 
@@ -130,6 +190,25 @@ function FormAlojamiento() {
         }
 
         return alert;
+    }
+
+    function validateImages(files, errors){
+        let alert = ""
+        if(files.length==0){
+            alert = errors.emptyAlert
+        }else if(files.length<2){
+            alert = errors.minImagesAlert
+        }else if(files.length>5){
+            alert = errors.maxImagesAlert
+        }else{
+            const fileExtensionRegex = /\.(jpg|png|jpeg)$/i;
+            for(let i = 0 ; i < files.length && alert==="" ; i++){
+                if(!fileExtensionRegex.test(files[i].name)){
+                    alert = errors.formatImagesAlert
+                }
+            }
+        }
+        return alert
     }
 
     function cancelForm(e) {
@@ -171,27 +250,25 @@ function FormAlojamiento() {
                             <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} alert={descripAlert} maxLength={150} />
                         </div>
                         <div className="col m-3">
-                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"} />
+                            <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"} alert={locatMapAlert} />
                             <div className="row">
                                 <div className="col">
-                                    <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} />
+                                    <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} alert={timeInAlert}/>
                                 </div>
                                 <div className="col">
-                                    <TimeField fieldName={"Hora salida"} inputName={"timeOut"} />
+                                    <TimeField fieldName={"Hora salida"} inputName={"timeOut"} alert={timeOutAlert}/>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"} />
+                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"} alert={priceAlert}/>
                                 </div>
                                 <div className="col">
-                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"} />
+                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"} alert={prepayAlert}/>
                                 </div>
                             </div>
-                            <div className="mb-2 mt-2">
-                                <label className="form-label">Imágenes del Alojamiento:</label>
-                                <input type="file" multiple onChange={loadImages} className="form-control" />
-                            </div>
+                            <FilesUpload name={"Imágenes del Alojamiento"} onChange={loadImages} alert={filesAlert}/>
+                            
                             <section className="imageSection">
                                 <ul>
                                     {files.map(file => { return (<li key={file.name}>{file.name}</li>) })}
