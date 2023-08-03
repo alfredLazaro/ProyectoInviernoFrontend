@@ -32,11 +32,11 @@ export default function PrincipalListHoteles() {
       </div>
     );
   }
-
+  console.log(data.dateRegistration);
   const createdCards = data.map((establishments) => (
     <>
       <CardHotel
-        encargado = {data.name}
+        encargado1 = {data.name}
         imagenes={establishments.pictures.map(
           (imagen) => imagen.establishment_picture
         )}
@@ -47,7 +47,7 @@ export default function PrincipalListHoteles() {
           services.establishmentServices.map((servicio) => servicio.serviceName)
         )}
         ubicacion={establishments.location.location_name}
-        nombre={establishments.name}
+        name={establishments.name}
         id={establishments.idEstablishment}
       />
     </>

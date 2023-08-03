@@ -4,15 +4,15 @@ import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import axios from "axios";
 
-
 function PrincipalHotel() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  let idHotel = localStorage.getItem("idViewHotel")
+  let idHotel = localStorage.getItem("idViewHotel");
+  console.log(idHotel);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/inf/alojamiento/es/${idHotel}`)
+      .get(`http://localhost:8080/inf/alojamiento/${idHotel}`)
       .then((response) => {
         setPost(response.data);
         console.log(response.data);
@@ -38,16 +38,23 @@ function PrincipalHotel() {
       </div>
     );
   }
+  if (data.establishments[0].pictures.length <= 2) {
+    return (
+      <>
+        <h1>No se tiene datos completos del hotel.</h1>
+      </>
+    );
+  }
   console.log(data);
   let nombre = data.establishments[0].name;
   let encargado = data.name;
   let cantidadHuespedes = "12";
   let cantidadCamas = "1";
   let banios = 1;
-  let descripcion =data.establishments[0].description;
-    data.establishments[0].establishmentPackages[0].establishmentServices.map(
-      (servicio) => servicio.tipoServicio
-    );
+  let descripcion = data.establishments[0].description;
+  data.establishments[0].establishmentPackages[0].establishmentServices.map(
+    (servicio) => servicio.tipoServicio
+  );
   let servicios =
     data.establishments[0].establishmentPackages[0].establishmentServices.map(
       (servicio) => servicio.serviceName
@@ -100,7 +107,7 @@ function PrincipalHotel() {
 
   return (
     <>
-      <div>        
+      <div>
         <div className="container">{cardVistaInf()}</div>
       </div>
     </>

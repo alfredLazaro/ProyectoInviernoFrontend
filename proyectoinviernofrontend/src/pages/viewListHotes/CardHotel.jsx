@@ -5,12 +5,11 @@ import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 export default function CardHotel({
   imagenes,
   ancho,
-  alto,
-  encargado,
+  alto,  
   descripcion,
   servicios,
   ubicacion,
-  nombre,
+  name,
   id,
 }) {
   function redirectToHotel(event) {
@@ -26,18 +25,12 @@ export default function CardHotel({
       >
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
-            <h4>{nombre}</h4>
+            <h4>{name}</h4>
             <ViewCarouselHotel
               imagenes={imagenes}
               ancho={ancho}
               largo={alto}
             ></ViewCarouselHotel>
-            <h6>
-              Encargado:
-              <span>
-                <p>{encargado}</p>
-              </span>
-            </h6>
 
             <h6>
               Descripcion:
