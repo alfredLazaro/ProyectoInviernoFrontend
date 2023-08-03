@@ -1,0 +1,9 @@
+.cardInfHotelMargenNegrilla{
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+span{
+    color: rgb(109, 106, 106);    
+}
