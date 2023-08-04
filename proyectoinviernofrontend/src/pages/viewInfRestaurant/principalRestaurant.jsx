@@ -38,7 +38,25 @@ function PrincipalRestaurant(props) {
     let nombreEncargado = data.name;
     let descripcion = data.establishments[0].description;
     data.establishments[0].establishmentsPackages[0].establishmentServices.map((servicio) => servicio.tipoServicio);  
+    let servicios= data.establishments[0].establishmentsPackages[0].establishmentServices.map((servicio) => servicio.serviceName);
+    let ubicacion = data.establishments[0].location.location_name;
+    let imagenes= data.establishments[0].pictures.map((imagen) => imagen.imagen_stablishment);  
     
-
+    function cardVistaInf(){
+      return(
+        <>
+          <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}>
+            <div className="col-md-4 card m-5">
+              <div>
+                <h4>
+                  {nombre}
+                </h4>
+                
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
 }
 export default PrincipalRestaurant;
