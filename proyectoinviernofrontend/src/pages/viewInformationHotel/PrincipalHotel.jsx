@@ -9,6 +9,20 @@ function PrincipalHotel() {
   const [loading, setLoading] = useState(true);
 
   let idHotel = localStorage.getItem("idViewHotel");
+
+  if (idHotel === null) {
+    return (
+      <>
+        <div
+          className="d-flex justify-content-center align-items-center "
+          style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}
+        >
+          <h1>Lista los hoteles y selecciona uno.</h1>
+        </div>
+      </>
+    );
+  }
+
   console.log(idHotel);
   useEffect(() => {
     axios
@@ -48,9 +62,6 @@ function PrincipalHotel() {
   console.log(data);
   let nombre = data.establishments[0].name;
   let encargado = data.name;
-  let cantidadHuespedes = "12";
-  let cantidadCamas = "1";
-  let banios = 1;
   let descripcion = data.establishments[0].description;
   data.establishments[0].establishmentPackages[0].establishmentServices.map(
     (servicio) => servicio.tipoServicio
@@ -75,22 +86,11 @@ function PrincipalHotel() {
             <div className="cardInfHotelMargenNegrilla">
               <h4>{nombre}</h4>
               <ViewCarouselHotel imagenes={imagenes} ancho={250} largo={200} />
-
-              <h5>
-                Encargado: <span>{encargado}</span>{" "}
-              </h5>
-              <h5>
-                Cantidad de huespedes: <span>{cantidadHuespedes}</span>
-              </h5>
-              <h5>
-                Cantidad Camas: <span>{cantidadCamas}</span>
-              </h5>
-
-              <h5>
-                Baños: <span>{banios}</span>
-              </h5>
               <h5>
                 Descripcion: <span>{descripcion}</span>
+              </h5>
+              <h5>
+                Encargado: <span>{encargado}</span>{" "}
               </h5>
               <h5>
                 Servicios: <span>{servicios}</span>

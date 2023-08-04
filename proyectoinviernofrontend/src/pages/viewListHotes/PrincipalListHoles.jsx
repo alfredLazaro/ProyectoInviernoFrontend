@@ -19,7 +19,7 @@ export default function PrincipalListHoteles() {
         <div className="showTournamentTitle">
           <div
             className="d-flex justify-content-center align-items-center "
-            style={{ height: "100", fontWeight: "bold", margin: "10px" }}
+            style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}
           >
             <ReactLoading
               type={"bubbles"}

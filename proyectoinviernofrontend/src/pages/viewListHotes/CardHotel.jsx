@@ -30,6 +30,7 @@ export default function CardHotel({
               imagenes={imagenes}
               ancho={ancho}
               largo={alto}
+              style={{ borderRadius: '20px',}}
             ></ViewCarouselHotel>
 
             <h6>
