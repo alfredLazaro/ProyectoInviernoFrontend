@@ -6,10 +6,14 @@ import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
 import NumberField from "../../components/Forms/NumberField";
 import FilesUpload from "../../components/Forms/FilesUpload";
+import ConfirmationPopup from "./ConfirmationPopup";
 import axios from "axios";
 
 
+
 function FormAlojamiento() {
+
+    const [data, setData] = useState({});
 
     // Archivos de imagen
     const [files, setFiles] = useState([]);
@@ -25,7 +29,10 @@ function FormAlojamiento() {
     const [priceAlert, setPriceAlert] = useState("")
     const [prepayAlert, setPrepayAlert] = useState("")
     const [filesAlert, setFilesAlert] = useState("")
-    
+
+    // Manejo Popups
+    const [openConfirm, setOpenConfirm] = useState(false);
+
     const BACK_URL = "http://localhost:8080/"
 
     const responsibleId = 1
@@ -41,6 +48,7 @@ function FormAlojamiento() {
         e.preventDefault();
 
         const form = e.target;
+        setData(form);
 
         // Mostrar los valores de formulario
         /*const formData = new FormData(form);
@@ -56,6 +64,12 @@ function FormAlojamiento() {
             return; //Sale de función
         }
 
+        // Mostrar Popup de confirmacion
+        setOpenConfirm(true);
+    }
+
+    async function registerAccomodation() {
+        let form = data;
         let housingData = {
             responsiblePerson: {
                 id: responsibleId
@@ -120,9 +134,9 @@ function FormAlojamiento() {
         //Validar ubicacion (?)
         alert = ""
         const linkRegex = /^(http:\/\/|https:\/\/)[^\s]+$/i;
-        if(form.locationMap.value===""){
+        if (form.locationMap.value === "") {
             alert = errors.emptyAlert
-        }else if(!linkRegex.test(form.locationMap.value)){
+        } else if (!linkRegex.test(form.locationMap.value)) {
             alert = errors.linkAlert
         }
         setLocatMapAlert(alert)
@@ -130,7 +144,7 @@ function FormAlojamiento() {
 
         // Validar hora entrada
         alert = ""
-        if(form.timeIn.value===""){
+        if (form.timeIn.value === "") {
             alert = errors.emptyAlert
         }
         setTimeInAlert(alert)
@@ -138,9 +152,9 @@ function FormAlojamiento() {
 
         // Validar hora salida
         alert = ""
-        if(form.timeOut.value===""){
+        if (form.timeOut.value === "") {
             alert = errors.emptyAlert
-        }else if(form.timeOut.value <= form.timeIn.value){
+        } else if (form.timeOut.value <= form.timeIn.value) {
             alert = errors.timeOutAlert
         }
         setTimeOutAlert(alert)
@@ -148,9 +162,9 @@ function FormAlojamiento() {
 
         // Validar precio
         alert = ""
-        if(form.price.value===""){
+        if (form.price.value === "") {
             alert = errors.emptyAlert
-        }else if(parseInt(form.price.value)<0){
+        } else if (parseInt(form.price.value) < 0) {
             alert = errors.negativeAlert
         }
         setPriceAlert(alert)
@@ -158,11 +172,11 @@ function FormAlojamiento() {
 
         // Validar porcentaje reserva
         alert = ""
-        if(form.prepay.value===""){
+        if (form.prepay.value === "") {
             alert = errors.emptyAlert
-        }else if(parseInt(form.prepay.value)<0){
+        } else if (parseInt(form.prepay.value) < 0) {
             alert = errors.negativeAlert
-        }else if(parseInt(form.prepay.value)>100){
+        } else if (parseInt(form.prepay.value) > 100) {
             alert = errors.range100Alert
         }
         setPrepayAlert(alert)
@@ -171,8 +185,9 @@ function FormAlojamiento() {
         // Validar imágenes
         alert = validateImages(files, errors)
         setFilesAlert(alert)
-        
-        if(allAlerts!=="")validated = false;
+        allAlerts += alert
+
+        if (allAlerts !== "") validated = false;
 
         return validated;
     }
@@ -192,18 +207,18 @@ function FormAlojamiento() {
         return alert;
     }
 
-    function validateImages(files, errors){
+    function validateImages(files, errors) {
         let alert = ""
-        if(files.length==0){
+        if (files.length == 0) {
             alert = errors.emptyAlert
-        }else if(files.length<2){
+        } else if (files.length < 2) {
             alert = errors.minImagesAlert
-        }else if(files.length>5){
+        } else if (files.length > 5) {
             alert = errors.maxImagesAlert
-        }else{
+        } else {
             const fileExtensionRegex = /\.(jpg|png|jpeg)$/i;
-            for(let i = 0 ; i < files.length && alert==="" ; i++){
-                if(!fileExtensionRegex.test(files[i].name)){
+            for (let i = 0; i < files.length && alert === ""; i++) {
+                if (!fileExtensionRegex.test(files[i].name)) {
                     alert = errors.formatImagesAlert
                 }
             }
@@ -253,22 +268,22 @@ function FormAlojamiento() {
                             <TextField fieldName={"Ubicacion en mapa"} inputName={"locationMap"} placeholder={"Enlace de la ubicación"} alert={locatMapAlert} />
                             <div className="row">
                                 <div className="col">
-                                    <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} alert={timeInAlert}/>
+                                    <TimeField fieldName={"Hora entrada"} inputName={"timeIn"} alert={timeInAlert} />
                                 </div>
                                 <div className="col">
-                                    <TimeField fieldName={"Hora salida"} inputName={"timeOut"} alert={timeOutAlert}/>
+                                    <TimeField fieldName={"Hora salida"} inputName={"timeOut"} alert={timeOutAlert} />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"} alert={priceAlert}/>
+                                    <NumberField fieldName={"Precio de alojamiento($)"} inputName={"price"} alert={priceAlert} />
                                 </div>
                                 <div className="col">
-                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"} alert={prepayAlert}/>
+                                    <NumberField fieldName={"Porcentaje de reserva(%)"} inputName={"prepay"} alert={prepayAlert} />
                                 </div>
                             </div>
-                            <FilesUpload name={"Imágenes del Alojamiento"} onChange={loadImages} alert={filesAlert}/>
-                            
+                            <FilesUpload name={"Imágenes del Alojamiento"} onChange={loadImages} alert={filesAlert} />
+
                             <section className="imageSection">
                                 <ul>
                                     {files.map(file => { return (<li key={file.name}>{file.name}</li>) })}
@@ -279,6 +294,7 @@ function FormAlojamiento() {
                     <div>
                         <button className="btn btn-primary">Completar Registro</button>
                         <button className="btn" onClick={cancelForm}>Cancelar</button>
+                        <ConfirmationPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation}/>
                     </div>
                 </form>
             </div>
