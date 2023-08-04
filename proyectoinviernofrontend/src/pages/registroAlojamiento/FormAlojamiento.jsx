@@ -7,6 +7,9 @@ import TimeField from "../../components/Forms/TimeField";
 import NumberField from "../../components/Forms/NumberField";
 import FilesUpload from "../../components/Forms/FilesUpload";
 import ConfirmationPopup from "./ConfirmationPopup";
+import RejectPopup from "./RejectPopup";
+import MainButton from "../../components/Forms/MainButton";
+import OtherButton from "../../components/Forms/OtherButton";
 import axios from "axios";
 
 
@@ -32,6 +35,7 @@ function FormAlojamiento() {
 
     // Manejo Popups
     const [openConfirm, setOpenConfirm] = useState(false);
+    const [openCancel, setOpenCancel] = useState(false);
 
     const BACK_URL = "http://localhost:8080/"
 
@@ -40,8 +44,6 @@ function FormAlojamiento() {
     function loadImages(e) {
         const loadedFiles = Array.from(e.target.files);
         setFiles(loadedFiles);
-
-        console.log(loadedFiles);
     }
 
     async function handleSubmit(e) {
@@ -195,7 +197,7 @@ function FormAlojamiento() {
     function validateTextInput(text, errors) {
         let alert = "";
 
-        let regex = /^[a-zA-Z,.]+$/
+        let regex = /^[a-zA-Z,.\n]+$/
         if (text === "") {
             alert = errors.emptyAlert;
         } else if (text.trim() === "") {
@@ -228,7 +230,7 @@ function FormAlojamiento() {
 
     function cancelForm(e) {
         e.preventDefault()
-        console.log("Cancelar")
+        setOpenCancel(true)
     }
 
     async function uploadImages(idEstablishment) {
@@ -250,13 +252,14 @@ function FormAlojamiento() {
 
 
     return (
-
-        <div>
+        <div className="bodyForm">
             <NavBar />
             <div className="formContainer">
-                <h1>Registro de nuevo alojamiento</h1>
+                <h1 className="pageTitle">Registro de nuevo alojamiento</h1>
                 <form className="formPlace" onSubmit={handleSubmit}>
-                    <h2>Formulario de Registro de Datos</h2>
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 className="formTitle">Formulario de Registro de Datos</h2>
+                    </div>
                     <div className="row">
                         <div className="col m-3">
                             <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30} />
@@ -285,18 +288,19 @@ function FormAlojamiento() {
                             <FilesUpload name={"Imágenes del Alojamiento"} onChange={loadImages} alert={filesAlert} />
 
                             <section className="imageSection">
-                                <ul>
-                                    {files.map(file => { return (<li key={file.name}>{file.name}</li>) })}
+                                <ul className="listImages">
+                                    {files.map(file => { return (<li className="listElement" key={file.name}>{file.name}</li>) })}
                                 </ul>
                             </section>
                         </div>
                     </div>
-                    <div>
-                        <button className="btn btn-primary">Completar Registro</button>
-                        <button className="btn" onClick={cancelForm}>Cancelar</button>
-                        <ConfirmationPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation}/>
+                    <div style={{textAlign: "center"}}>
+                        <OtherButton text={"Cancelar"} onClick={cancelForm}/>
+                        <MainButton text={"Completar Registro"}/>
                     </div>
                 </form>
+                <ConfirmationPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation} />
+                <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>
     )

@@ -1,7 +1,54 @@
 .centerText {
-    text-align: center;
+  text-align: center;
 }
 
 .alertText {
-    color: red;
+  color: red;
+}
+
+.labelText {
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.mainButton {
+  margin: 2%;
+  padding: 1% 2%;
+  background-color: #014a3d;
+  color: white;
+  border-radius: 10px;
+  border-style: none;
+}
+
+.otherButton {
+  margin: 2%;
+  padding: 1% 2%;
+  background-color: white;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #014a3d;
+}
+
+.inputFile::-webkit-file-upload-button {
+  visibility: visible;
+  background-color: #40c9b0;
+  border: 1.5px solid black;
+  padding: 2%;
+  margin-right: 3%;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.inputFile {
+  width: 75%;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.inputFile::-webkit-file-upload-button:hover {
+  border-color: white;
 }
