@@ -49,6 +49,10 @@ function PrincipalRestaurant(props) {
             <div className="col-md-4 card m-5">
               <div>
                 <h4>{nombre}</h4>
+                <viewCarouselHotel imagenes={imagenes} ancho={250} largo={200}/>
+                <h5>Descripcion: {descripcion}</h5>
+                <h5>Encargado: <span>{nombreEncargado}</span></h5>
+                <h5>Servicios: <span>{servicios}</span></h5>
               </div>
             </div>
           </div>
