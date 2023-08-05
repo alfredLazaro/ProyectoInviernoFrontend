@@ -48,10 +48,7 @@ function PrincipalRestaurant(props) {
           <div className="d-flex justify-content-center align-items-center" style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}>
             <div className="col-md-4 card m-5">
               <div>
-                <h4>
-                  {nombre}
-                </h4>
-                
+                <h4>{nombre}</h4>
               </div>
             </div>
           </div>
