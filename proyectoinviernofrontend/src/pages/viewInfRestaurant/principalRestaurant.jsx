@@ -34,6 +34,7 @@ function PrincipalRestaurant(props) {
         <h1>No se tiene datos completos del restaurante.</h1>
       </>);
     }
+    /* esto la carga de los datos de la tabla */
     let nombre = data.establishments[0].name;
     let nombreEncargado = data.name;
     let descripcion = data.establishments[0].description;
