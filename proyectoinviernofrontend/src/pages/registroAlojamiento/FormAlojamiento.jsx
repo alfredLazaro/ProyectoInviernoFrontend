@@ -1,4 +1,3 @@
-import NavBar from "../../components/NavBar";
 import "./FormAlojamiento.css";
 import React, { useState } from "react";
 import TextField from "../../components/Forms/TextField";
@@ -253,7 +252,6 @@ function FormAlojamiento() {
 
     return (
         <div className="bodyForm">
-            <NavBar />
             <div className="formContainer">
                 <h1 className="pageTitle">Registro de nuevo alojamiento</h1>
                 <form className="formPlace" onSubmit={handleSubmit}>
