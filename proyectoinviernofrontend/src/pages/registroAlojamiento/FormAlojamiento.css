@@ -1,0 +1,52 @@
+.bodyForm {
+  font-family: "Poppins";
+}
+
+.formContainer {
+  padding: 2% 10%;
+  text-align: left;
+}
+
+.pageTitle {
+  color: #000;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.formTitle {
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.formPlace {
+  background-color: #2f9380;
+  border-radius: 5px;
+  padding: 2.5% 4%;
+  margin-bottom: 2%;
+  text-align: left;
+}
+
+.imageSection {
+  text-align: center;
+  padding: 0 3%;
+}
+
+.listImages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.listElement {
+  border-style: solid;
+  border-width: 2.5px;
+  padding: 0.5% 2%;
+  margin: 1% 0;
+  border-radius: 10px;
+}
