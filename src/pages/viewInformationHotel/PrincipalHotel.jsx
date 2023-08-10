@@ -1,19 +1,32 @@
-import NavBar from "../../components/NavBar";
 import "./PrincipalHotel.css";
 import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 import React, { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import axios from "axios";
 
-
 function PrincipalHotel() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  let idHotel = 1;
+  let idHotel = localStorage.getItem("idViewHotel");
+
+  if (idHotel === null) {
+    return (
+      <>
+        <div
+          className="d-flex justify-content-center align-items-center "
+          style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}
+        >
+          <h1>Lista los hoteles y selecciona uno.</h1>
+        </div>
+      </>
+    );
+  }
+
+  console.log(idHotel);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/inf/alojamiento/es/${idHotel}`)
+      .get(`http://localhost:8080/inf/alojamiento/${idHotel}`)
       .then((response) => {
         setPost(response.data);
         console.log(response.data);
@@ -39,23 +52,27 @@ function PrincipalHotel() {
       </div>
     );
   }
+  if (data.establishments[0].pictures.length <= 2) {
+    return (
+      <>
+        <h1>No se tiene datos completos del hotel.</h1>
+      </>
+    );
+  }
   console.log(data);
-  let nombre = data.establecimientos[0].nombre;
-  let encargado = data.nombre;
-  let cantidadHuespedes = "12";
-  let cantidadCamas = "1";
-  let banios = 1;
-  let descripcion =
-    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
-      (servicio) => servicio.tipoServicio
-    );
+  let nombre = data.establishments[0].name;
+  let encargado = data.name;
+  let descripcion = data.establishments[0].description;
+  data.establishments[0].establishmentPackages[0].establishmentServices.map(
+    (servicio) => servicio.tipoServicio
+  );
   let servicios =
-    data.establecimientos[0].paqueteEstablecimientos[0].servicioEstablecimientos.map(
-      (servicio) => servicio.nombreServicio
+    data.establishments[0].establishmentPackages[0].establishmentServices.map(
+      (servicio) => servicio.serviceName
     );
-  let ubicacion = data.establecimientos[0].ubicacion.nombre_ubicacion;
-  let imagenes = data.establecimientos[0].imagenes.map(
-    (imagen) => imagen.imgenen_establecimiento
+  let ubicacion = data.establishments[0].location.location_name;
+  let imagenes = data.establishments[0].pictures.map(
+    (imagen) => imagen.establishment_picture
   );
 
   function cardVistaInf() {
@@ -69,22 +86,11 @@ function PrincipalHotel() {
             <div className="cardInfHotelMargenNegrilla">
               <h4>{nombre}</h4>
               <ViewCarouselHotel imagenes={imagenes} ancho={250} largo={200} />
-
-              <h5>
-                Encargado: <span>{encargado}</span>{" "}
-              </h5>
-              <h5>
-                Cantidad de huespedes: <span>{cantidadHuespedes}</span>
-              </h5>
-              <h5>
-                Cantidad Camas: <span>{cantidadCamas}</span>
-              </h5>
-
-              <h5>
-                Baños: <span>{banios}</span>
-              </h5>
               <h5>
                 Descripcion: <span>{descripcion}</span>
+              </h5>
+              <h5>
+                Encargado: <span>{encargado}</span>{" "}
               </h5>
               <h5>
                 Servicios: <span>{servicios}</span>
@@ -102,7 +108,6 @@ function PrincipalHotel() {
   return (
     <>
       <div>
-        <NavBar />
         <div className="container">{cardVistaInf()}</div>
       </div>
     </>
