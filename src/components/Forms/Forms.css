@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-.alertForm {
-    color: red;
-    text-align: center;
-}
-=======
 .centerText {
   text-align: center;
 }
@@ -58,4 +52,3 @@
 .inputFile::-webkit-file-upload-button:hover {
   border-color: white;
 }
->>>>>>> historia-5

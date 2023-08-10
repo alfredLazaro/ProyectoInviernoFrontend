@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-.formContainer {
-    padding: 0 10%;
-}
-
-
-.formPlace {
-    background-color: #2F9380;
-    border-radius: 5px;
-    padding: 5%;
-    margin-bottom: 2%;
-    text-align: left;
-}
-
-.imageSection {
-    text-align: center;
-}
-=======
 .bodyForm {
   font-family: "Poppins";
 }
@@ -68,4 +50,3 @@
   margin: 1% 0;
   border-radius: 10px;
 }
->>>>>>> historia-5
