@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // eslint-disable-next-line react/prop-types
 export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
+  // eslint-disable-next-line react/prop-types
   imagenes = imagenes.map((URL, index) => (
     <div className="slide" key={index}>
       <img
