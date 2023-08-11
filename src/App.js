@@ -4,8 +4,14 @@ import React from 'react';
 import PrincipalHotel from "./pages/viewInformationHotel/PrincipalHotel";
 import PrincipalListHoteles from "./pages/viewListHotes/PrincipalListHoles";
 import NavBar from "./components/NavBar";
-/* import PrincipalHotel from "./pages/vistaInformacionHotel/PrincipalHotel"; */
 import FormAlojamiento from "./pages/registroAlojamiento/FormAlojamiento";
+import DraggableMarkerExample from "./pages/locationRecord/DraggableMarkerExample";
+import Leaflet from 'leaflet'
+import './App.css';
+import 'leaflet/dist/leaflet.css';
+Leaflet.Icon.Default.imagePath =
+  '//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/'
+
 
 function App() {
   return (
@@ -16,6 +22,7 @@ function App() {
         <Route path="/infhotel" element={ <PrincipalHotel /> } />
         <Route path="/hotels" element={<PrincipalListHoteles/>}/>
         <Route path="/registrarAloj" element={ <FormAlojamiento /> } />
+        <Route path="/recordlocation" element={<DraggableMarkerExample/>} />
       </Routes>
       </div>
     </>
