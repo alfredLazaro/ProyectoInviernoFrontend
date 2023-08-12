@@ -8,6 +8,7 @@ import React, {
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import OtherButton from "../../components/Forms/OtherButton";
 import PostRecordLocation from "./PostRecordLocation";
+import './DraggableMarkerExample.css'
 
 let positionReal;
 // eslint-disable-next-line react/prop-types
@@ -100,7 +101,7 @@ export default function DraggableMarkerExample({ idEstablishment }) {
                 <h1>Registro del establecimiento</h1>
                 <p>(Presione sobre el icono azul y siga las instrucciones)</p>
                 <MapContainer center={center} zoom={15} scrollWheelZoom={true}>
-                  <TileLayer
+                  <TileLayer                    
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
