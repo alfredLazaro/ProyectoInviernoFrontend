@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Popup from 'reactjs-popup';
 import "./Popup.css";
-import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export default function ConfirmationPopup({ open, setOpen, successAction }) {
@@ -9,17 +8,15 @@ export default function ConfirmationPopup({ open, setOpen, successAction }) {
   const [openSuccess, setOpenSuccess] = useState(false);
   const closeModalSuccess = () => setOpenSuccess(false);
 
-  const navigate = useNavigate();
-
   function confirmAction() {
     successAction();
     closeModal();
     setOpenSuccess(true);
   }
 
-  function exitForm(){
+  function exitForm() {
     closeModalSuccess();
-    navigate("/");
+    location.reload();
   }
 
   const SuccessPopup = () => {
@@ -28,7 +25,7 @@ export default function ConfirmationPopup({ open, setOpen, successAction }) {
         <Popup open={openSuccess} closeOnDocumentClick onClose={closeModalSuccess}>
           <div>
             <label className="modalMessage">Registro exitoso</label>
-            <div style={{textAlign: "center"}}>
+            <div style={{ textAlign: "center" }}>
               <button className="yesButton" onClick={exitForm}>OK</button>
             </div>
           </div>
@@ -42,9 +39,9 @@ export default function ConfirmationPopup({ open, setOpen, successAction }) {
       <Popup open={open} closeOnDocumentClick onClose={closeModal} className="modalBackground">
         <div className="modalContainer">
           <label className="modalMessage">¿Está seguro de finalizar el registro?</label>
-          <div style={{textAlign: "center"}}>
-            <button className="close noButton" onClick={closeModal}> No </button>
+          <div style={{ textAlign: "center" }}>
             <button className="yesButton" onClick={confirmAction}> Si </button>
+            <button className="close noButton" onClick={closeModal}> No </button>
           </div>
         </div>
       </Popup>

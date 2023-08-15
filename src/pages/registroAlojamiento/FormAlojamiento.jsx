@@ -105,12 +105,12 @@ function FormAlojamiento() {
         let errors = {
             blankAlert: "Este campo no se puede llenar solamente con espacios",
             onlyLettersAlert: "Solo se permiten letras, comas y puntos en este campo",
-            emptyAlert: "Este campo no se pude dejar vacio",
+            emptyAlert: "Este campo no se pude dejar vacío",
             negativeAlert: "Este campo solo permite números positivos",
             linkAlert: "Solo se permiten enlaces en este campo",
             timeOutAlert: "La hora de salida debe ser posterior a la de entrada",
             range100Alert: "Este campo solo permite números en el rango de 0 hasta 100",
-            formatImagesAlert: "Solo se permiten imagenes con extensión: jpg, png y jpeg",
+            formatImagesAlert: "Solo se permiten imágenes con extensión: jpg, png y jpeg",
             maxImagesAlert: "Se supero el limite máximo de 5 imágenes",
             minImagesAlert: "Se debe registrar al menos 2 imágenes"
         }
@@ -196,7 +196,7 @@ function FormAlojamiento() {
     function validateTextInput(text, errors) {
         let alert = "";
 
-        let regex = /^[a-zA-Z,.\n]+$/
+        let regex = /^[ a-zA-ZáéíóúÁÉÍÓÚñÑ,.\n]+$/
         if (text === "") {
             alert = errors.emptyAlert;
         } else if (text.trim() === "") {
@@ -260,7 +260,7 @@ function FormAlojamiento() {
                     </div>
                     <div className="row">
                         <div className="col m-3">
-                            <TextField fieldName={"Nombre de Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30} />
+                            <TextField fieldName={"Nombre del Alojamiento"} inputName={"name"} placeholder={"Descripcion corta del Alojamiento"} alert={nameAlert} maxLength={30} />
                             <TextField fieldName={"Nombre de la Ubicación"} inputName={"locationName"} placeholder={"Ciudad - País u otros datos de Alojamiento"} alert={locatNameAlert} maxLength={30} />
                             <TextField fieldName={"Detalles del Alojamiento"} inputName={"details"} placeholder={"Cantidad habitaciones, Baños, Huéspedes máximos permitidos"} alert={detailsAlert} maxLength={50} />
                             <TextArea fieldName={"Descripcion del Alojamiento"} inputName={"description"} alert={descripAlert} maxLength={150} />
@@ -293,8 +293,8 @@ function FormAlojamiento() {
                         </div>
                     </div>
                     <div style={{textAlign: "center"}}>
-                        <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                         <MainButton text={"Completar Registro"}/>
+                        <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                     </div>
                 </form>
                 <ConfirmationPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation} />
