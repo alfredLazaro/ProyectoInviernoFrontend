@@ -10,7 +10,7 @@ export default function NavBar() {
   return (
     <>
       <div style={{ backgroundColor: "green", marginBottom: "1em" }}>
-        <h1>NavBAr</h1>
+        <h1>FodStayPlay</h1>
         <div>
           <NavLink to='/hotels' exact activeClassName ="active">
             <button onClick={viewListAccommdations}>Ver alojamientos</button>

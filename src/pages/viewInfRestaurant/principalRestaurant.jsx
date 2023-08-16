@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+//import CardRestau from "../components/cardRestau/CardResta";
+import ReactLoading from "react-loading";
 import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 import Axios from "axios";
-function PrincipalRestaurant(props) {
+function PrincipalRestaurant() {
     const [data, setData] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     let idRestaurant = localStorage.getItem("idViewRestaurant");
@@ -20,13 +22,14 @@ function PrincipalRestaurant(props) {
         });
     }, []);
     if (loading) {
-        return (<div className="main">
-        <div className="showTournamentTitle">
-          <div className="d-flex justify-content-center align-items-center " style={{ height: "100", fontWeight: "bold", margin: "10px" }}>
-            <h1>Loading...</h1>
-            <ReactLoading type={"bubbles"} color={"#fffff"} height={100} width={100}/>
+        return (
+        <div className="main">
+          <div className="showTournamentTitle">
+            <div className="d-flex justify-content-center align-items-center " style={{ height: "100", fontWeight: "bold", margin: "10px" }}>
+              <h1>Loading...</h1>
+              <ReactLoading type={"bubbles"} color={"#fffff"} height={100} width={100}/>
+            </div>
           </div>
-        </div>
       </div>);
     }
     if (data.establishments[0].pictures.length <= 2) {
@@ -50,15 +53,23 @@ function PrincipalRestaurant(props) {
             <div className="col-md-4 card m-5">
               <div>
                 <h4>{nombre}</h4>
-                <viewCarouselHotel imagenes={imagenes} ancho={250} largo={200}/>
+                <ViewCarouselHotel imagenes={imagenes} ancho={250} largo={200}/>
                 <h5>Descripcion: {descripcion}</h5>
                 <h5>Encargado: <span>{nombreEncargado}</span></h5>
                 <h5>Servicios: <span>{servicios}</span></h5>
+                <h5>Ubicacion: <span>{ubicacion}</span></h5>
               </div>
             </div>
           </div>
         </>
       );
     }
+    return(
+      <>
+        <div>
+          <div>{cardVistaInf()}</div>
+        </div>
+      </>
+    );
 }
 export default PrincipalRestaurant;
