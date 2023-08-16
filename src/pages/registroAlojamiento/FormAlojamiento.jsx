@@ -73,7 +73,7 @@ function FormAlojamiento() {
         let form = data;
         let housingData = {
             responsiblePerson: {
-                id: responsibleId
+                id_responsible: responsibleId
             },
             description: form.description.value,
             openingTime: form.timeIn.value + ":00",
