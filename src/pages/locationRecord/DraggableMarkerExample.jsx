@@ -7,8 +7,9 @@ import React, {
 } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import OtherButton from "../../components/Forms/OtherButton";
-import PostRecordLocation from "./PostRecordLocation";
-import './DraggableMarkerExample.css'
+
+import axios from "axios";
+import "./DraggableMarkerExample.css";
 
 let positionReal;
 // eslint-disable-next-line react/prop-types
@@ -22,7 +23,6 @@ function DraggableMarker({ center }) {
         const marker = markerRef.current;
         if (marker != null) {
           setPosition(marker.getLatLng());
-          console.log(marker.getLatLng());
           positionReal = marker.getLatLng();
         }
       },
@@ -80,12 +80,33 @@ export default function DraggableMarkerExample({ idEstablishment }) {
       lng: -65.183753,
     };
   }
-  function recordUbication() {
+  const [postLocation, setPostLocation] = useState(null);
+  async function recordUbication() {
+    idEstablishment = 2;
+    let locationPost = {
+      id_location: 0,
+      latitude_location: positionReal[0],
+      longitude_location: positionReal[1],
+      location_name: "canada",
+      establishment: {
+        idEstablishment: idEstablishment,
+      },
+    };
     alert("esta a punto de registrar algo XD" + positionReal);
-    PostRecordLocation(
-      (idEstablishment = { idEstablishment }),
-      (positionReal = { positionReal })
-    );
+
+    alert(idEstablishment);
+    let API_URL = "localhost:8080" + "/location";
+    await axios.post(API_URL, locationPost).then((response) => {
+      setPostLocation(response);
+    });
+
+    if (!postLocation) {
+      return "No post";
+    } else {
+      //const closeModal = () => setOpen(false);
+
+      return <>{alert("se a subido")}</>;
+    }
   }
 
   return (
@@ -101,7 +122,7 @@ export default function DraggableMarkerExample({ idEstablishment }) {
                 <h1>Registro del establecimiento</h1>
                 <p>(Presione sobre el icono azul y siga las instrucciones)</p>
                 <MapContainer center={center} zoom={15} scrollWheelZoom={true}>
-                  <TileLayer                    
+                  <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />

@@ -5,7 +5,7 @@ import ViewCarouselHotel from "../../components/ViewCarouselHotel";
 export default function CardHotel({
   imagenes,
   ancho,
-  alto,  
+  alto,
   descripcion,
   servicios,
   ubicacion,
@@ -19,10 +19,7 @@ export default function CardHotel({
   }
   return (
     <>
-      <div        
-        className="col-md-4 col-sm-6"        
-        style={{ marginBottom: "1em" }}
-      >
+      <div className="col-md-4 col-sm-6" style={{ marginBottom: "1em" }}>
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
             <h4>{name}</h4>
@@ -30,7 +27,7 @@ export default function CardHotel({
               imagenes={imagenes}
               ancho={ancho}
               largo={alto}
-              style={{ borderRadius: '20px',}}
+              style={{ borderRadius: "20px" }}
             ></ViewCarouselHotel>
 
             <h6>
