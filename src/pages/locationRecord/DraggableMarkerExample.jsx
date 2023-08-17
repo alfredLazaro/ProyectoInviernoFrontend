@@ -58,8 +58,9 @@ function DraggableMarker({ center }) {
 export default function DraggableMarkerExample() {
   const [post, setPost] = useState(null);
   const idEstablishment = localStorage.getItem("idEstablishment");
-  if (idEstablishment == null) {
-    return <>Registro no correcto</>;
+  const establishmentName = localStorage.getItem("establishmentName");
+  if (idEstablishment == null || establishmentName == null) {
+    return <>Registro incorrecto</>;
   }
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -71,9 +72,7 @@ export default function DraggableMarkerExample() {
       }
     );
   }, [!post]);
-  /* 
-  Latitud: {position.coords.latitude}
-          Longitud: {position.coords.longitude} */
+  
   let center;
   if (post != null) {
     center = {
@@ -92,7 +91,7 @@ export default function DraggableMarkerExample() {
     let locationPost = {
       latitude_location: positionReal.lat,
       longitude_location: positionReal.lng,
-      location_name: "canada",
+      location_name: establishmentName,
       establishment: {
         idEstablishment: idEstablishment,
       },
@@ -103,13 +102,12 @@ export default function DraggableMarkerExample() {
     let API_URL = "http://localhost:8080" + "/location";
     await axios.put(API_URL, locationPost).then((response) => {
       setPostLocation(response);
+      return <>{alert("se a subido")}</>;
     });
 
     if (!postLocation) {
       return "No post";
-    } else {
-      //const closeModal = () => setOpen(false);
-
+    } else {      
       return <>{alert("se a subido")}</>;
     }
   }
@@ -120,7 +118,7 @@ export default function DraggableMarkerExample() {
         <div className="row">
           <div
             className="d-flex justify-content-center align-items-center"
-            style={{ height: "80vh", fontWeight: "bold", margin: "10px" }}
+            style={{ height: "100vh", fontWeight: "bold", margin: "10px" }}
           >
             <div className="card col-md-7 m-3">
               <div className="cardInfHotelMargenNegrilla">

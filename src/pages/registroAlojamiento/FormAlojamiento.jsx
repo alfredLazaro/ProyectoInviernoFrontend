@@ -245,7 +245,7 @@ function FormAlojamiento() {
                 .then((response) => {
                     console.log(response.data)                
                     localStorage.setItem("idEstablishment",idEstablishment)
-                    history.push('/recordlocation');
+                    localStorage.setItem("establishmentName",data.name.values)
                 })
         } catch (error) {
             console.log(error);
