@@ -12,10 +12,10 @@ export default function CardResta({
   name,
   id,
 }) {
-  function redirectToHotel(event) {
+  function redirectToRestaurant(event) {
     console.log(event.target.id);
-    localStorage.setItem("idViewHotel", event.target.id);
-    window.location = "/infhotel";
+    localStorage.setItem("idViewRestaurant", event.target.id);
+    window.location = "/infRestaurant";
   }
   return (
     <>
@@ -45,7 +45,7 @@ export default function CardResta({
             <h6>
               Ubicacion: <span>{ubicacion}</span>
             </h6>
-            <button id={id} onClick={redirectToHotel} style={{ width: "3em" }}>
+            <button id={id} onClick={redirectToRestaurant} style={{ width: "3em" }}>
               ver
             </button>
           </div>

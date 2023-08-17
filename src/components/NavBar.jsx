@@ -15,8 +15,9 @@ export default function NavBar() {
           <NavLink to='/hotels' exact activeClassName ="active">
             <button onClick={viewListAccommdations}>Ver alojamientos</button>
           </NavLink>
-
-          <button onClick={viewListRestaurants}>Ver restaurantes</button>
+          <NavLink to='/restaurantes' exact activeClassName ="active">
+            <button onClick={viewListRestaurants}>Ver restaurantes</button>
+          </NavLink>
         </div>
       </div>
     </>

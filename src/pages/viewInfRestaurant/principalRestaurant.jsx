@@ -15,7 +15,7 @@ function PrincipalRestaurant() {
       </>);
     }
     useEffect(() => {
-        Axios.get(`http://localhost:8080/inf/restaurant/${idRestaurant}`).then((response) => {
+        Axios.get(`http://localhost:8080/restaurant/${idRestaurant}`).then((response) => {
             setData(response.data);
             console.log(response.data);
             setLoading(false);
