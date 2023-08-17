@@ -18,10 +18,9 @@ export default function RejectPopup({ open, setOpen }) {
                 <div style={{ textAlign: "center" }}>
                     <label className="modalMessage">¿Está seguro de cancelar el registro?</label>
                     <div>
-                        <button className="close noButton" onClick={closeModal}> No </button>
                         <button className="yesButton" onClick={confirmAction}> Si </button>
+                        <button className="close noButton" onClick={closeModal}> No </button>
                     </div>
-
                 </div>
             </Popup>
         </div>
