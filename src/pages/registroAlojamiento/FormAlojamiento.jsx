@@ -1,5 +1,5 @@
 import "./FormAlojamiento.css";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import TextField from "../../components/Forms/TextField";
 import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
@@ -73,7 +73,7 @@ function FormAlojamiento() {
         let form = data;
         let housingData = {
             responsiblePerson: {
-                id_responsible: responsibleId
+                id: responsibleId
             },
             description: form.description.value,
             openingTime: form.timeIn.value + ":00",
@@ -89,8 +89,9 @@ function FormAlojamiento() {
             let API_URL = BACK_URL + "inf/alojamiento";
             await axios.post(API_URL, housingData)
                 .then((response) => {
-                    uploadImages(response.data.idEstablishment)
+                    uploadImages(response.data.idEstablishment)                
                 });
+                
         } catch (error) {
             console.log(error);
         }
@@ -242,7 +243,9 @@ function FormAlojamiento() {
             let API_URL = BACK_URL + "image/fileSystem";
             await axios.post(API_URL, imageData)
                 .then((response) => {
-                    console.log(response.data)
+                    console.log(response.data)                
+                    localStorage.setItem("idEstablishment",idEstablishment)
+                    history.push('/recordlocation');
                 })
         } catch (error) {
             console.log(error);
@@ -293,7 +296,7 @@ function FormAlojamiento() {
                         </div>
                     </div>
                     <div style={{textAlign: "center"}}>
-                        <MainButton text={"Completar Registro"}/>
+                        <MainButton text={"Continuar Registro"}/>
                         <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                     </div>
                 </form>

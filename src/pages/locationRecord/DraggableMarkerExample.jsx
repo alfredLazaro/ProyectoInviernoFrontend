@@ -11,7 +11,10 @@ import OtherButton from "../../components/Forms/OtherButton";
 import axios from "axios";
 import "./DraggableMarkerExample.css";
 
-let positionReal;
+let positionReal = {
+  lat: -18.204607,
+  lng: -65.183753,
+};
 // eslint-disable-next-line react/prop-types
 function DraggableMarker({ center }) {
   const [draggable, setDraggable] = useState(false);
@@ -52,9 +55,12 @@ function DraggableMarker({ center }) {
 }
 
 // eslint-disable-next-line react/prop-types
-export default function DraggableMarkerExample({ idEstablishment }) {
+export default function DraggableMarkerExample() {
   const [post, setPost] = useState(null);
-
+  const idEstablishment = localStorage.getItem("idEstablishment");
+  if (idEstablishment == null) {
+    return <>Registro no correcto</>;
+  }
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -81,22 +87,21 @@ export default function DraggableMarkerExample({ idEstablishment }) {
     };
   }
   const [postLocation, setPostLocation] = useState(null);
+  console.log(positionReal[0]);
   async function recordUbication() {
-    idEstablishment = 2;
     let locationPost = {
-      id_location: 0,
-      latitude_location: positionReal[0],
-      longitude_location: positionReal[1],
+      latitude_location: positionReal.lat,
+      longitude_location: positionReal.lng,
       location_name: "canada",
       establishment: {
         idEstablishment: idEstablishment,
       },
     };
-    alert("esta a punto de registrar algo XD" + positionReal);
+    /*     alert("esta a punto de registrar algo XD" + positionReal);
 
-    alert(idEstablishment);
-    let API_URL = "localhost:8080" + "/location";
-    await axios.post(API_URL, locationPost).then((response) => {
+    alert(idEstablishment); */
+    let API_URL = "http://localhost:8080" + "/location";
+    await axios.put(API_URL, locationPost).then((response) => {
       setPostLocation(response);
     });
 

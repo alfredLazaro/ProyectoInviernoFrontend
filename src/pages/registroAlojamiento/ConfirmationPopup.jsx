@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from 'reactjs-popup';
+import Popup from "reactjs-popup";
 import "./Popup.css";
 
 // eslint-disable-next-line react/prop-types
@@ -16,17 +16,23 @@ export default function ConfirmationPopup({ open, setOpen, successAction }) {
 
   function exitForm() {
     closeModalSuccess();
-    location.reload();
+    window.location.href = "/recordlocation";
   }
 
   const SuccessPopup = () => {
     return (
       <div>
-        <Popup open={openSuccess} closeOnDocumentClick onClose={closeModalSuccess}>
+        <Popup
+          open={openSuccess}
+          closeOnDocumentClick
+          onClose={closeModalSuccess}
+        >
           <div>
             <label className="modalMessage">Registro exitoso</label>
             <div style={{ textAlign: "center" }}>
-              <button className="yesButton" onClick={exitForm}>OK</button>
+              <button className="yesButton" onClick={exitForm}>
+                OK
+              </button>
             </div>
           </div>
         </Popup>
@@ -36,12 +42,25 @@ export default function ConfirmationPopup({ open, setOpen, successAction }) {
 
   return (
     <div>
-      <Popup open={open} closeOnDocumentClick onClose={closeModal} className="modalBackground">
+      <Popup
+        open={open}
+        closeOnDocumentClick
+        onClose={closeModal}
+        className="modalBackground"
+      >
         <div className="modalContainer">
-          <label className="modalMessage">¿Está seguro de finalizar el registro?</label>
+          <label className="modalMessage">
+            ¿Está seguro de finalizar el registro?
+          </label>
           <div style={{ textAlign: "center" }}>
-            <button className="yesButton" onClick={confirmAction}> Si </button>
-            <button className="close noButton" onClick={closeModal}> No </button>
+            <button className="yesButton" onClick={confirmAction}>
+              {" "}
+              Si{" "}
+            </button>
+            <button className="close noButton" onClick={closeModal}>
+              {" "}
+              No{" "}
+            </button>
           </div>
         </div>
       </Popup>
