@@ -3,11 +3,18 @@ import React from "react";
 import PopupUseGeneral from "./PopupUseGeneral";
 
 export default function NavBar() {
-  function viewListAccommdations() {}
+  function viewListAccommdations() {
+    alert("una");
+  }
 
-  function viewListRestaurants() {}
+  function viewListRestaurants() {
+    alert("dos");
+  }
 
-  
+  let functionsMessages = [
+    { func: viewListAccommdations, message: "hola" },
+    { func: viewListRestaurants, message: "mundo" },
+  ];
 
   return (
     <>
@@ -19,7 +26,10 @@ export default function NavBar() {
           </NavLink>
 
           <button onClick={viewListRestaurants}>Ver restaurantes</button>
-          <PopupUseGeneral message={"estamos listos"}/>
+          <PopupUseGeneral
+            message={"estamos listos"}
+            functions={functionsMessages}
+          />
         </div>
       </div>
     </>

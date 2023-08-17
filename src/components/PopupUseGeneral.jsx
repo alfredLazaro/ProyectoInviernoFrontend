@@ -1,22 +1,30 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import ButtonGeneral from "./ButtonGeneral";
 
 // eslint-disable-next-line react/prop-types
-export default function PopupUseGeneral({ message, buttons }) {
+export default function PopupUseGeneral({ message, functions }) {
+  //btn btn-secondary
+  // eslint-disable-next-line react/prop-types
+  let buttonsView = functions.map((button) => {
+    return (
+      <>
+        <ButtonGeneral
+          style={"mainButton"}
+          func={button.func}
+          message={button.message}
+        />
+      </>
+    );
+  });
   return (
-    <div>
-      <h4>Popup - GeeksforGeeks</h4>
-      <Popup trigger={<button> Click to open modal </button>} modal nested>
-        {(close) => (
-          <div className="modal">
-            <div className="content">{message}</div>
-            <div>
-              <button onClick={() => close()}>Close modal</button>
-              {buttons}
-            </div>
-          </div>
-        )}
+    <>
+      <Popup trigger={<button> Click </button>} modal nested>
+        <div className="modalMessage">
+          <label className="modalMessage">{message}</label>
+        </div>
+        <div style={{ textAlign: "center" }}>{buttonsView}</div>
       </Popup>
-    </div>
+    </>
   );
 }
