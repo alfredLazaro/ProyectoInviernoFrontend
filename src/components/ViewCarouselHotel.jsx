@@ -14,9 +14,26 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
         width={ancho}
         height={largo}
       />
-{/*       <p>{URL}</p> */}
     </div>
   ));
+  /* // eslint-disable-next-line react/prop-types
+  imagenes = imagenes.map((URL, index) => {
+    let fixedURL = URL.replace(/\\/g, "/");
+    
+    return (
+      <div className="slide" key={index}>
+        <img
+          alt="sample_file"
+          src={fixedURL} 
+          key={index}
+          width={ancho}
+          height={largo}
+        />
+       <p>{fixedURL}</p>
+      </div>
+    );
+  }); */
+  
   return (
     <>
       <div>
