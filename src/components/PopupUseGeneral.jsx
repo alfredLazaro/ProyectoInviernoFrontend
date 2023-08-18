@@ -3,8 +3,11 @@ import Popup from "reactjs-popup";
 import ButtonGeneral from "./ButtonGeneral";
 
 // eslint-disable-next-line react/prop-types
-export default function PopupUseGeneral({ message, functions }) {
+export default function PopupUseGeneral({ open, message, functions }) {
   //btn btn-secondary
+  if (functions == null) {
+    alert("popup sin funciones enviadas");
+  }
   // eslint-disable-next-line react/prop-types
   let buttonsView = functions.map((button) => {
     return (
@@ -19,7 +22,7 @@ export default function PopupUseGeneral({ message, functions }) {
   });
   return (
     <>
-      <Popup trigger={<button> Click </button>} modal nested>
+      <Popup open={open}>
         <div className="modalMessage">
           <label className="modalMessage">{message}</label>
         </div>

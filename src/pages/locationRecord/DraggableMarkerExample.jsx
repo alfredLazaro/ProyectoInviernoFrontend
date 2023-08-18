@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import OtherButton from "../../components/Forms/OtherButton";
-
+import PopupUseGeneral from "../../components/PopupUseGeneral";
 import axios from "axios";
 import "./DraggableMarkerExample.css";
 
@@ -72,7 +72,7 @@ export default function DraggableMarkerExample() {
       }
     );
   }, [!post]);
-  
+
   let center;
   if (post != null) {
     center = {
@@ -86,7 +86,7 @@ export default function DraggableMarkerExample() {
     };
   }
   const [postLocation, setPostLocation] = useState(null);
-  console.log(positionReal[0]);
+  const [popUpView, setPopUpView] = useState(false);
   async function recordUbication() {
     let locationPost = {
       latitude_location: positionReal.lat,
@@ -99,17 +99,27 @@ export default function DraggableMarkerExample() {
     /*     alert("esta a punto de registrar algo XD" + positionReal);
 
     alert(idEstablishment); */
-    let API_URL = "http://localhost:8080" + "/location";
+    let API_URL = "http://localhost:8080/location";
     await axios.put(API_URL, locationPost).then((response) => {
       setPostLocation(response);
-      return <>{alert("se a subido")}</>;
+      setPopUpView(true);
     });
 
     if (!postLocation) {
       return "No post";
-    } else {      
+    } else {
       return <>{alert("se a subido")}</>;
     }
+  }
+  let functionsObjets = [
+    {
+      func: successAction,
+      message: "Ok",
+    },
+  ];
+  function successAction() {
+    setPopUpView(false);
+    window.location.href = "/";
   }
 
   return (
@@ -135,6 +145,11 @@ export default function DraggableMarkerExample() {
                   <OtherButton
                     text={"registrar ubicacion"}
                     onClick={recordUbication}
+                  />
+                  <PopupUseGeneral
+                    open={popUpView}
+                    message={"Registro de ubicacion exitoso!"}
+                    functions={functionsObjets}
                   />
                 </div>
               </div>
