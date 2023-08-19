@@ -29,7 +29,7 @@ function ViewLisRestaurants(){
         <>
             <CardRestaurant
                 encargado1={data.name}
-                imagenes={restaurants.pictures.map((imagen)=>imagen.establishment_picture)}
+                imagenes={restaurants.pictures.map((imagen)=>imagen.id_picture)}
                 ancho={100}
                 alto={200}
                 descripcion={restaurants.description}

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import ViewCarouselHotel from "../ViewCarouselHotel";
-
+//import ViewCarouselHotel from "../ViewCarouselHotel";
+import ViewCarrucelRest from "../carruselRest/ViewCarrucelRest"
 export default function CardResta({
   imagenes,
   ancho,
@@ -26,12 +26,12 @@ export default function CardResta({
         <div className="card">
           <div className="cardInfHotelMargenNegrilla">
             <h4>{name}</h4>
-            <ViewCarouselHotel
+            <ViewCarrucelRest
               imagenes={imagenes}
               ancho={ancho}
               largo={alto}
               style={{ borderRadius: '20px',}}
-            ></ViewCarouselHotel>
+            ></ViewCarrucelRest>
 
             <h6>
               Descripcion:
