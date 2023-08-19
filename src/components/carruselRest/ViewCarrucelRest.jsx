@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Axios } from "axios";
+import axios from "axios";
 import React from "react";
 /* import { useEffect } from "react"; */
 /* import { Carousel } from "react-responsive-carousel"; */
@@ -17,7 +17,7 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
         const getImageFromServer = async () => {
             try {
               
-                  const response = await Axios.get('http://localhost:8080/image/fileSystem/6', {
+                  const response = await axios.get('http://localhost:8080/image/fileSystem/6', {
                       responseType: 'arraybuffer', // Indica que la respuesta es un array de bytes
                   });
 
