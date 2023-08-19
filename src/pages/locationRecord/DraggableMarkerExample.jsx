@@ -119,6 +119,10 @@ export default function DraggableMarkerExample() {
   ];
   function successAction() {
     setPopUpView(false);
+    /* const idEstablishment = localStorage.getItem("idEstablishment");
+    const establishmentName = localStorage.getItem("establishmentName"); */
+    localStorage.removeItem("idEstablishment");
+    localStorage.removeItem("establishmentName");
     window.location.href = "/";
   }
 

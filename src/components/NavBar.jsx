@@ -3,19 +3,23 @@ import React, { useState } from "react";
 import PopupUseGeneral from "./PopupUseGeneral";
 
 export default function NavBar() {
-  function viewListAccommdations() {
+  function viewListAccommdations() {}
+
+  function viewListRestaurants() {}
+
+  function viewListAccommdations1() {
     alert("una");
     setPopUpView(false);
   }
 
-  function viewListRestaurants() {
+  function viewListRestaurants1() {
     alert("dos");
     setPopUpView(false);
   }
 
   let functionsMessages = [
-    { func: viewListAccommdations, message: "hola" },
-    { func: viewListRestaurants, message: "mundo" },
+    { func: viewListAccommdations1, message: "hola" },
+    { func: viewListRestaurants1, message: "mundo" },
   ];
 
   const [popUpView, setPopUpView] = useState(false);
