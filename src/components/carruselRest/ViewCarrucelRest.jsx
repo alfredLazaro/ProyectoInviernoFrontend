@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import imageDefecto from "../imagenDefecto.png"
 // eslint-disable-next-line react/prop-types
 export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
   const [imageDataArray, setImageDataArray] = useState([]);
