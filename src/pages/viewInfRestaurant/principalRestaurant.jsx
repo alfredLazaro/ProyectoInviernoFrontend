@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 //import CardRestau from "../components/cardRestau/CardResta";
 import ReactLoading from "react-loading";
-import ViewCarouselHotel from "../../components/ViewCarouselHotel";
+import ViewCarruselRest from "../../components/carruselRest/ViewCarrucelRest";
 import Axios from "axios";
 function PrincipalRestaurant() {
     const [data, setData] = React.useState([]);
@@ -17,7 +17,6 @@ function PrincipalRestaurant() {
     useEffect(() => {
         Axios.get(`http://localhost:8080/restaurant/${idRestaurant}`).then((response) => {
             setData(response.data);
-            console.log(response.data);
             setLoading(false);
         });
     }, []);
@@ -38,13 +37,15 @@ function PrincipalRestaurant() {
       </>);
     }
     /* esto la carga de los datos de la tabla */
-    let nombre = data.establishments[0].name;
+    let datosEstablecimiento=data.establishments[0];
+    let nombre = datosEstablecimiento.name;
     let nombreEncargado = data.name;
-    let descripcion = data.establishments[0].description;
-    data.establishments[0].establishmentsPackages[0].establishmentServices.map((servicio) => servicio.tipoServicio);  
-    let servicios= data.establishments[0].establishmentsPackages[0].establishmentServices.map((servicio) => servicio.serviceName);
-    let ubicacion = data.establishments[0].location.location_name;
-    let imagenes= data.establishments[0].pictures.map((imagen) => imagen.imagen_stablishment);  
+    let tipoDeComida =datosEstablecimiento.cookingKind;
+    let descripcion = datosEstablecimiento.description;
+    let tipoServicio=datosEstablecimiento.establishmentPackages[0].establishmentServices.map((servicio) => servicio.typeService);  
+    let servicios= datosEstablecimiento.establishmentPackages[0].establishmentServices.map((servicio) => servicio.serviceName);
+    let ubicacion = datosEstablecimiento.location.location_name;
+    let imagenes= datosEstablecimiento.pictures.map((imagen) => imagen.id_picture);  
     
     function cardVistaInf(){
       return(
@@ -53,11 +54,13 @@ function PrincipalRestaurant() {
             <div className="col-md-4 card m-5">
               <div>
                 <h4>{nombre}</h4>
-                <ViewCarouselHotel imagenes={imagenes} ancho={250} largo={200}/>
+                <ViewCarruselRest imagenes={imagenes} ancho={250} largo={200}/>
+                <h5>Tipo de Cocina: <span>{tipoDeComida}</span></h5>
                 <h5>Descripcion: {descripcion}</h5>
-                <h5>Encargado: <span>{nombreEncargado}</span></h5>
                 <h5>Servicios: <span>{servicios}</span></h5>
+                <h5>Tipo de Servicio: <span>{tipoServicio}</span></h5>
                 <h5>Ubicacion: <span>{ubicacion}</span></h5>
+                <h5>Encargado: <span>{nombreEncargado}</span></h5>
               </div>
             </div>
           </div>

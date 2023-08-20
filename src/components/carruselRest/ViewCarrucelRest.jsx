@@ -39,6 +39,7 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
               key={index}
               width={ancho}
               height={largo}
+              style={{ objectFit: "cover" }}
             />
           </div>
         );
