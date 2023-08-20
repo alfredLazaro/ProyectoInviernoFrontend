@@ -56,7 +56,7 @@ function PrincipalRestaurant() {
                 <h4>{nombre}</h4>
                 <ViewCarruselRest imagenes={imagenes} ancho={250} largo={200}/>
                 <h5>Tipo de Cocina: <span>{tipoDeComida}</span></h5>
-                <h5>Descripcion: {descripcion}</h5>
+                <h5>Descripcion: <span>{descripcion}</span></h5>
                 <h5>Servicios: <span>{servicios}</span></h5>
                 <h5>Tipo de Servicio: <span>{tipoServicio}</span></h5>
                 <h5>Ubicacion: <span>{ubicacion}</span></h5>

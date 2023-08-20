@@ -9,48 +9,56 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 // eslint-disable-next-line react/prop-types
 export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
-  const [imageData, setImageData] = useState(null);
-  imagenes = imagenes.map((id, index) => {
-        const getImageFromServer = async () => {
-          try {
-                const response = await axios.get(`http://localhost:8080/image/fileSystem/${id}`, {
-                    responseType: 'arraybuffer', // Indica que la respuesta es un array de bytes
-                });
-                // Convertir el array de bytes en un Blob
-                const blob = new Blob([response.data], { type: 'image/png' });
-                // Convertir el Blob en una URL
-                const imageUrl = URL.createObjectURL(blob);
-                // Guardar la URL en el estado
-                setImageData(imageUrl);
-                // Guardar la URL en localStorage
-                localStorage.setItem('imageData', imageUrl);
-          } catch (error) {
-              console.error('no se cargo la imagen', error);
-          }
-      };
-      useEffect(() => {
-        getImageFromServer(); // Llamamos a la función para obtener la imagen cuando el componente se monta
-      }, []);
-        return (
-          <div className="slide" key={index}>
-            <img
-              alt="sample_file"
-              src={imageData} 
-              key={index}
-              width={ancho}
-              height={largo}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        );
-  });
+  const [imageDataArray, setImageDataArray] = useState([]);
+
+  useEffect(() => {
+    const getImageFromServer = async (id, index) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/image/fileSystem/${id}`, {
+          responseType: 'arraybuffer',
+        });
+
+        const blob = new Blob([response.data], { type: 'image/png' });
+        const imageUrl = URL.createObjectURL(blob);
+
+        // Actualizamos el arreglo de estados con la URL de imagen
+        setImageDataArray(prevArray => {
+          const newArray = [...prevArray];
+          newArray[index] = imageUrl;
+          return newArray;
+        });
+      } catch (error) {
+        console.error('No se cargó la imagen', error);
+      }
+    };
+
+    imagenes.forEach((id, index) => {
+      getImageFromServer(id, index);
+    });
+  }, [imagenes]);
+
   return (
-    <>
-      <div>
-        <div className="box">
-          <Carousel  timer={2000} useKeyboardArrows={true} >{imagenes}</Carousel>
-        </div>
+    <div>
+      <div className="box">
+        <Carousel timer={2000} useKeyboardArrows={true}>
+          {imageDataArray.map((imageUrl, index) => (
+            <div className="slide" key={index}>
+              {imageUrl ? (
+                <img
+                  alt="sample_file"
+                  src={imageUrl}
+                  width={ancho}
+                  height={largo}
+                  style={{ objectFit: "cover" }}
+                />
+              ) : (
+                <p>Cargando imagen...</p>
+              )}
+            </div>
+          ))}
+        </Carousel>
       </div>
-    </>
+    </div>
   );
 }
+
