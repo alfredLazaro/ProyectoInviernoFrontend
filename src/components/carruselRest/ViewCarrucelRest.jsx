@@ -12,7 +12,7 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
   const [imageDataArray, setImageDataArray] = useState([]);
 
   useEffect(() => {
-    const getImageFromServer = async (id, index) => {
+    const getImageFromServer = async (id) => {
       try {
         const response = await axios.get(`http://localhost:8080/image/fileSystem/${id}`, {
           responseType: 'arraybuffer',
@@ -22,19 +22,22 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
         const imageUrl = URL.createObjectURL(blob);
 
         // Actualizamos el arreglo de estados con la URL de imagen
-        setImageDataArray(prevArray => {
-          const newArray = [...prevArray];
-          newArray[index] = imageUrl;
-          return newArray;
-        });
+        return imageUrl;
       } catch (error) {
         console.error('No se cargó la imagen', error);
+        return imageDefecto;
       }
     };
 
     imagenes.forEach((id, index) => {
       getImageFromServer(id, index);
     });
+    const fetchImages = async () => {
+      const imagePromise = imagenes.map(id => getImageFromServer(id));
+      const imagenesUrl = await Promise.all(imagePromise);
+      setImageDataArray(imagenesUrl);
+    };
+    fetchImages();
   }, [imagenes]);
 
   return (
