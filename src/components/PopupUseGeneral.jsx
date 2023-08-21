@@ -5,8 +5,8 @@ import ButtonGeneral from "./ButtonGeneral";
 // eslint-disable-next-line react/prop-types
 export default function PopupUseGeneral({ open, message, functions }) {
   //btn btn-secondary
-  if (functions == null) {+
-    alert("popup sin funciones enviadas");
+  if (functions == null) {
+    +alert("popup sin funciones enviadas");
   }
   // eslint-disable-next-line react/prop-types
   let buttonsView = functions.map((button) => {
