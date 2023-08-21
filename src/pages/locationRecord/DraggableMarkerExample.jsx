@@ -154,6 +154,7 @@ export default function DraggableMarkerExample() {
                     open={popUpView}
                     message={"Registro de ubicacion exitoso!"}
                     functions={functionsObjets}
+                    setPopUpView={setPopUpView}
                   />
                 </div>
               </div>

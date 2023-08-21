@@ -3,9 +3,10 @@ import React from "react";
 export default function ButtonGeneral({ func, message, style }) {
   return (
     <>
-      <button className={style} onClick={func}>
-        {message}
-      </button>
+      
+        <button className={style} onClick={func}>
+          {message}
+        </button>      
     </>
   );
 }

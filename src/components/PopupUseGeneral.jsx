@@ -5,7 +5,7 @@ import ButtonGeneral from "./ButtonGeneral";
 // eslint-disable-next-line react/prop-types
 export default function PopupUseGeneral({ open, message, functions }) {
   //btn btn-secondary
-  if (functions == null) {
+  if (functions == null) {+
     alert("popup sin funciones enviadas");
   }
   // eslint-disable-next-line react/prop-types
@@ -13,7 +13,7 @@ export default function PopupUseGeneral({ open, message, functions }) {
     return (
       <>
         <ButtonGeneral
-          style={"mainButton"}
+          style={"yesButton"}
           func={button.func}
           message={button.message}
         />
@@ -22,7 +22,7 @@ export default function PopupUseGeneral({ open, message, functions }) {
   });
   return (
     <>
-      <Popup open={open}>
+      <Popup closeOnDocumentClick={false} open={open}>
         <div className="modalMessage">
           <label className="modalMessage">{message}</label>
         </div>
