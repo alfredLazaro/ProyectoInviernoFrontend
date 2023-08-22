@@ -239,7 +239,7 @@ function FormAlojamiento() {
         }
         imageData.append('id_establishment', idEstablishment)
         try {
-            let REQUEST_URL = API_URL + "image/fileSystem";
+            let REQUEST_URL = API_URL + "image/accommodation";
             await axios.post(REQUEST_URL, imageData)
                 .then((response) => {
                     console.log(response.data)
@@ -256,7 +256,7 @@ function FormAlojamiento() {
                 <h1 className="pageTitle">Registro de nuevo alojamiento</h1>
                 <form className="formPlace" onSubmit={handleSubmit}>
                     <div style={{ textAlign: 'center' }}>
-                        <h2 className="formTitle">Formulario de Registro de Datos</h2>
+                        <h2 className="formTitle">Formulario de Registro</h2>
                     </div>
                     <div className="row">
                         <div className="col m-3">

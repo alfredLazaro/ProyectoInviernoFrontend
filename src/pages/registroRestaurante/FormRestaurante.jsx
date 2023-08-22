@@ -93,7 +93,7 @@ function FormRestaurante() {
         }
         imageData.append('id_establishment', idEstablishment)
         try {
-            let REQUEST_URL = API_URL + "image/fileSystem";
+            let REQUEST_URL = API_URL + "image/restaurant";
             await axios.post(REQUEST_URL, imageData)
                 .then((response) => {
                     console.log(response.data)
@@ -215,12 +215,14 @@ function FormRestaurante() {
 
 
     return (
-        <div>
+        <div className="bodyForm"> 
             <div className="formContainer">
-                <h1>Registro nuevo restaurante</h1>
+                <h1 className='pageTitle'>Registro nuevo restaurante</h1>
                 <form className="formPlace" onSubmit={handleSubmit}>
                     {/* create function  handleSubmit */}
-                    <h2>Formulario de registro</h2>
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 className='formTitle'>Formulario de Registro</h2>
+                    </div>
                     <div className='row'>
                         <div className='col m-3'>
                             <TextField fieldName={"Nombre del Restaurante"} inputName={"name"} alert={nameAlert} maxLength={30} />
@@ -241,14 +243,14 @@ function FormRestaurante() {
                             <FilesUpload name={"Imágenes del Restaurante"} onChange={loadImages} alert={filesAlert} />
 
                             <section className='imageSection'>
-                                <ul>
-                                    {files.map(file => { return (<li key={file.name}> {file.name}</li>) })}
+                                <ul className="listImages">
+                                    {files.map(file => { return (<li className="listElement" key={file.name}> {file.name}</li>) })}
                                 </ul>
                             </section>
                         </div>
 
                     </div>
-                    <div className='center'>
+                    <div style={{textAlign: "center"}}>
                         <MainButton text={"Completar Registro"} />
                         <OtherButton text={"Cancelar"} onClick={cancelForm} />
                         {/* cancelForm */}
