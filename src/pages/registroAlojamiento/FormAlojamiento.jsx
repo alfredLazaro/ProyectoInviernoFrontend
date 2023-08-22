@@ -5,8 +5,8 @@ import TextArea from "../../components/Forms/TextArea";
 import TimeField from "../../components/Forms/TimeField";
 import NumberField from "../../components/Forms/NumberField";
 import FilesUpload from "../../components/Forms/FilesUpload";
-import ConfirmationPopup from "./ConfirmationPopup";
-import RejectPopup from "./RejectPopup";
+import ConfirmPopup from "../../components/Forms/Popups/ConfirmPopup";
+import RejectPopup from "../../components/Forms/Popups/RejectPopup";
 import MainButton from "../../components/Forms/MainButton";
 import OtherButton from "../../components/Forms/OtherButton";
 import axios from "axios";
@@ -36,7 +36,7 @@ function FormAlojamiento() {
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openCancel, setOpenCancel] = useState(false);
 
-    const BACK_URL = "http://localhost:8080/"
+    const API_URL = "http://localhost:8080/"
 
     const responsibleId = 1
 
@@ -48,9 +48,8 @@ function FormAlojamiento() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        const form = e.target;
-        setData(form);
-
+        const info = e.target;
+        
         // Mostrar los valores de formulario
         /*const formData = new FormData(form);
 
@@ -61,9 +60,10 @@ function FormAlojamiento() {
         console.log(formDataObject);*/
 
 
-        if (!validateData(form)) {
+        if (!validateData(info)) {
             return; //Sale de función
         }
+        setData(info);
 
         // Mostrar Popup de confirmacion
         setOpenConfirm(true);
@@ -86,8 +86,8 @@ function FormAlojamiento() {
 
         // Llamada a API para registro
         try {
-            let API_URL = BACK_URL + "inf/alojamiento";
-            await axios.post(API_URL, housingData)
+            let REQUEST_URL = API_URL + "inf/alojamiento";
+            await axios.post(REQUEST_URL, housingData)
                 .then((response) => {
                     uploadImages(response.data.idEstablishment)
                 });
@@ -239,8 +239,8 @@ function FormAlojamiento() {
         }
         imageData.append('id_establishment', idEstablishment)
         try {
-            let API_URL = BACK_URL + "image/fileSystem";
-            await axios.post(API_URL, imageData)
+            let REQUEST_URL = API_URL + "image/fileSystem";
+            await axios.post(REQUEST_URL, imageData)
                 .then((response) => {
                     console.log(response.data)
                 })
@@ -297,7 +297,7 @@ function FormAlojamiento() {
                         <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                     </div>
                 </form>
-                <ConfirmationPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation} />
+                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation} />
                 <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>

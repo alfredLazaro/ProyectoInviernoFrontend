@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import "./Popup.css";
 
 // eslint-disable-next-line react/prop-types
-export default function ConfirmationPopup({ open, setOpen, successAction }) {
+export default function ConfirmPopup({ open, setOpen, successAction }) {
   const closeModal = () => setOpen(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const closeModalSuccess = () => setOpenSuccess(false);
