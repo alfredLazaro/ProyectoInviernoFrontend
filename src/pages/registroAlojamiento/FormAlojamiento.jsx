@@ -9,14 +9,10 @@ import ConfirmPopup from "../../components/Forms/Popups/ConfirmPopup";
 import RejectPopup from "../../components/Forms/Popups/RejectPopup";
 import MainButton from "../../components/Forms/MainButton";
 import OtherButton from "../../components/Forms/OtherButton";
-import axios from "axios";
-
+import EstablishmentService from "../../services/EstablishmentService";
 
 
 function FormAlojamiento() {
-
-    const [data, setData] = useState({});
-
     // Archivos de imagen
     const [files, setFiles] = useState([]);
 
@@ -36,8 +32,6 @@ function FormAlojamiento() {
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openCancel, setOpenCancel] = useState(false);
 
-    const API_URL = "http://localhost:8080/"
-
     const responsibleId = 1
 
     function loadImages(e) {
@@ -49,51 +43,19 @@ function FormAlojamiento() {
         e.preventDefault();
 
         const info = e.target;
-        
-        // Mostrar los valores de formulario
-        /*const formData = new FormData(form);
-
-        const formDataObject = {};
-        formData.forEach((value, name) => {
-            formDataObject[name] = value;
-        });
-        console.log(formDataObject);*/
-
 
         if (!validateData(info)) {
-            return; //Sale de función
+            return;
         }
-        setData(info);
 
-        // Mostrar Popup de confirmacion
+        let apiData = {
+            info: info,
+            files: files,
+            responsibleId: responsibleId
+        }
+
+        EstablishmentService.putData(apiData)
         setOpenConfirm(true);
-    }
-
-    async function registerAccomodation() {
-        let form = data;
-        let housingData = {
-            responsiblePerson: {
-                id: responsibleId
-            },
-            description: form.description.value,
-            openingTime: form.timeIn.value + ":00",
-            closing_time: form.timeOut.value + ":00",
-            name: form.name.value,
-            price_accommodation: form.price.value,
-            reservationPercentage: form.prepay.value,
-            detailsAccommodation: form.details.value
-        }
-
-        // Llamada a API para registro
-        try {
-            let REQUEST_URL = API_URL + "inf/alojamiento";
-            await axios.post(REQUEST_URL, housingData)
-                .then((response) => {
-                    uploadImages(response.data.idEstablishment)
-                });
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     function validateData(form) {
@@ -232,22 +194,7 @@ function FormAlojamiento() {
         setOpenCancel(true)
     }
 
-    async function uploadImages(idEstablishment) {
-        const imageData = new FormData()
-        for (const key of Object.keys(files)) {
-            imageData.append('images', files[key]);
-        }
-        imageData.append('id_establishment', idEstablishment)
-        try {
-            let REQUEST_URL = API_URL + "image/accommodation";
-            await axios.post(REQUEST_URL, imageData)
-                .then((response) => {
-                    console.log(response.data)
-                })
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    
 
 
     return (
@@ -297,7 +244,7 @@ function FormAlojamiento() {
                         <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                     </div>
                 </form>
-                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[registerAccomodation]} />
+                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[EstablishmentService.registerAccommodation, EstablishmentService.uploadImages]} />
                 <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>

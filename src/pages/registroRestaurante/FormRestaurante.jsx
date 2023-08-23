@@ -9,7 +9,8 @@ import RejectPopup from '../../components/Forms/Popups/RejectPopup';
 import ConfirmPopup from '../../components/Forms/Popups/ConfirmPopup';
 import MainButton from '../../components/Forms/MainButton';
 import OtherButton from '../../components/Forms/OtherButton';
-import AccommodationService from '../registroAlojamiento/AccommodationService';
+import EstablishmentService from '../../services/EstablishmentService';
+import { restaurantValidation } from './RestaurantValidation';
 
 
 function FormRestaurante() {
@@ -42,7 +43,18 @@ function FormRestaurante() {
         e.preventDefault();
         const info = e.target;
 
-        if (!validateData(info)) {
+        let setters = {
+            nameAlert: setNameAlert,
+            locatNameAlert: setLocatNameAlert,
+            cookingAlert: setCookingAlert,
+            descripAlert: setDescripAlert,
+            priceAlert: setPriceAlert,
+            openingAlert: setOpeningAlert,
+            closingAlert: setClosingAlert,
+            filesAlert: setFilesAlert
+        }
+
+        if (!restaurantValidation(info, setters, files)) {
             return;
         }
 
@@ -53,115 +65,10 @@ function FormRestaurante() {
             responsibleId: responsibleId
         }
 
-        AccommodationService.putData(apiData)
+        EstablishmentService.putData(apiData)
         setOpenConfirm(true)
     }
     
-    function validateData(info) {
-        let validated = true;
-        let allAlerts = "";
-        let alert = "";
-
-        // Mensajes de error
-        let errors = {
-            blankAlert: "Este campo no se puede llenar solamente con espacios",
-            onlyLettersAlert: "Solo se permiten letras, comas y puntos en este campo",
-            emptyAlert: "Este campo no se pude dejar vacío",
-            negativeAlert: "Este campo solo permite números positivos",
-            closingAlert: "La hora de cierre debe ser posterior a la de apertura",
-            formatImagesAlert: "Solo se permiten imágenes con extensión: jpg, png y jpeg",
-            maxImagesAlert: "Se supero el limite máximo de 5 imágenes",
-            minImagesAlert: "Se debe registrar al menos 2 imágenes"
-        }
-
-        //Validar campos de texto
-        alert = validateTextInput(info.name.value, errors)
-        setNameAlert(alert)
-        allAlerts += alert
-
-        alert = validateTextInput(info.locationName.value, errors)
-        setLocatNameAlert(alert)
-        allAlerts += alert
-
-        alert = validateTextInput(info.cookingKind.value, errors)
-        setCookingAlert(alert)
-        allAlerts += alert
-
-        alert = validateTextInput(info.description.value, errors)
-        setDescripAlert(alert)
-        allAlerts += alert
-
-        //Validar precio reserva
-        alert = ""
-        if (info.price.value === "") {
-            alert = errors.emptyAlert
-        } else if (parseInt(info.price.value) < 0) {
-            alert = errors.negativeAlert
-        }
-        setPriceAlert(alert)
-        allAlerts += alert
-
-        //Validar hora de apertura y cierre
-        alert = ""
-        if (info.openingTime.value === "") {
-            alert = errors.emptyAlert
-        }
-        setOpeningAlert(alert)
-        allAlerts += alert
-
-        alert = ""
-        if (info.closingTime.value === "") {
-            alert = errors.emptyAlert
-        } else if (info.openingTime.value >= info.closingTime.value) {
-            alert = errors.closingAlert
-        }
-        setClosingAlert(alert)
-        allAlerts += alert
-
-        // Validar imágenes
-        alert = validateImages(files, errors)
-        setFilesAlert(alert)
-        allAlerts += alert
-
-        if (allAlerts !== "") validated = false;
-
-        return validated;
-    }
-
-    function validateTextInput(text, errors) {
-        let alert = "";
-
-        let regex = /^[ a-zA-ZáéíóúÁÉÍÓÚñÑ,.\n]+$/
-        if (text === "") {
-            alert = errors.emptyAlert;
-        } else if (text.trim() === "") {
-            alert = errors.blankAlert;
-        } else if (!regex.test(text.trim())) {
-            alert = errors.onlyLettersAlert;
-        }
-
-        return alert;
-    }
-
-    function validateImages(files, errors) {
-        let alert = ""
-        if (files.length == 0) {
-            alert = errors.emptyAlert
-        } else if (files.length < 2) {
-            alert = errors.minImagesAlert
-        } else if (files.length > 5) {
-            alert = errors.maxImagesAlert
-        } else {
-            const fileExtensionRegex = /\.(jpg|png|jpeg)$/i;
-            for (let i = 0; i < files.length && alert === ""; i++) {
-                if (!fileExtensionRegex.test(files[i].name)) {
-                    alert = errors.formatImagesAlert
-                }
-            }
-        }
-        return alert
-    }
-
     function cancelForm(e) {
         e.preventDefault()
         setOpenCancel(true)
@@ -210,7 +117,7 @@ function FormRestaurante() {
                         {/* cancelForm */}
                     </div>
                 </form>
-                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[AccommodationService.registerRestaurant, AccommodationService.uploadImages]} />
+                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[EstablishmentService.registerRestaurant, EstablishmentService.uploadImages]} />
                 <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>

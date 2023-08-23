@@ -10,7 +10,7 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
 
   async function confirmAction() {
     await successActions[0](); // Registro de establecimiento
-    if(successActions.length>1)await successActions[1](); // Registro de imagenes
+    await successActions[1](); // Registro de imagenes
     closeModal();
     setOpenSuccess(true);
   }
