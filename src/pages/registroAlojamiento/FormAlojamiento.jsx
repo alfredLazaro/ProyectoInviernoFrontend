@@ -297,7 +297,7 @@ function FormAlojamiento() {
                         <OtherButton text={"Cancelar"} onClick={cancelForm}/>
                     </div>
                 </form>
-                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerAccomodation} />
+                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[registerAccomodation]} />
                 <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>

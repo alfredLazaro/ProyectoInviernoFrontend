@@ -9,11 +9,10 @@ import RejectPopup from '../../components/Forms/Popups/RejectPopup';
 import ConfirmPopup from '../../components/Forms/Popups/ConfirmPopup';
 import MainButton from '../../components/Forms/MainButton';
 import OtherButton from '../../components/Forms/OtherButton';
-import axios from "axios";
+import AccommodationService from '../registroAlojamiento/AccommodationService';
+
 
 function FormRestaurante() {
-
-    const [data, setData] = useState({});
 
     // Archivos de imagen
     const [files, setFiles] = useState([]);
@@ -32,8 +31,6 @@ function FormRestaurante() {
     const [openConfirm, setOpenConfirm] = useState(false);
     const [openCancel, setOpenCancel] = useState(false);
 
-    const API_URL = "http://localhost:8080/"
-
     const responsibleId = 1
 
     function loadImages(e) {
@@ -49,60 +46,17 @@ function FormRestaurante() {
             return;
         }
 
-        setData(info)
+        // Datos para API
+        let apiData = {
+            info: info,
+            files: files,
+            responsibleId: responsibleId
+        }
+
+        AccommodationService.putData(apiData)
         setOpenConfirm(true)
     }
-
-    async function registerRestaurant() {
-        let info = data
-
-        let restaurantData = {
-            responsiblePerson: {
-                id: responsibleId
-            },
-            name: info.name.value,
-            locationName: info.locationName.value,
-            description: info.description.value,
-            openingTime: info.openingTime.value + ":00",
-            closing_time: info.closingTime.value + ":00",
-            cookingKind: info.cookingKind.value,
-            priceRestaurant: info.price.value
-        }
-
-        // LLamada a API para registro
-        try {
-            let REQUEST_URL = API_URL + "restaurant";
-
-            await axios.post(REQUEST_URL, restaurantData)
-                .then(response => {
-                    console.log('Respuesta del servidor:', response.data);
-                    uploadImages(response.data.idEstablishment)
-                })
-                .catch(error => {
-                    console.error('Error al realizar la solicitud:', error);
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    async function uploadImages(idEstablishment) {
-        const imageData = new FormData()
-        for (const key of Object.keys(files)) {
-            imageData.append('images', files[key]);
-        }
-        imageData.append('id_establishment', idEstablishment)
-        try {
-            let REQUEST_URL = API_URL + "image/restaurant";
-            await axios.post(REQUEST_URL, imageData)
-                .then((response) => {
-                    console.log(response.data)
-                })
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
+    
     function validateData(info) {
         let validated = true;
         let allAlerts = "";
@@ -256,7 +210,7 @@ function FormRestaurante() {
                         {/* cancelForm */}
                     </div>
                 </form>
-                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successAction={registerRestaurant} />
+                <ConfirmPopup open={openConfirm} setOpen={setOpenConfirm} successActions={[AccommodationService.registerRestaurant, AccommodationService.uploadImages]} />
                 <RejectPopup open={openCancel} setOpen={setOpenCancel} />
             </div>
         </div>
