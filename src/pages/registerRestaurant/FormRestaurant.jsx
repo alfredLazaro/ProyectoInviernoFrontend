@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./FormRestaurante.css";
+import "./FormRestaurant.css";
 import TextField from '../../components/Forms/TextField';
 import TextArea from '../../components/Forms/TextArea';
 import TimeField from '../../components/Forms/TimeField';
@@ -13,7 +13,7 @@ import EstablishmentService from '../../services/EstablishmentService';
 import { restaurantValidation } from './RestaurantValidation';
 
 
-function FormRestaurante() {
+function FormRestaurant() {
 
     // Archivos de imagen
     const [files, setFiles] = useState([]);
@@ -58,7 +58,6 @@ function FormRestaurante() {
             return;
         }
 
-        // Datos para API
         let apiData = {
             info: info,
             files: files,
@@ -124,4 +123,4 @@ function FormRestaurante() {
     )
 }
 
-export default FormRestaurante
+export default FormRestaurant

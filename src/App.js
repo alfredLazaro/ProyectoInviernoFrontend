@@ -4,9 +4,8 @@ import React from 'react';
 import PrincipalHotel from "./pages/viewInformationHotel/PrincipalHotel";
 import PrincipalListHoteles from "./pages/viewListHotes/PrincipalListHoles";
 import NavBar from "./components/NavBar";
-/* import PrincipalHotel from "./pages/vistaInformacionHotel/PrincipalHotel"; */
-import FormAlojamiento from "./pages/registroAlojamiento/FormAlojamiento";
-import FormRestaurante from "./pages/registroRestaurante/FormRestaurante";
+import FormAccommodation from "./pages/registerAccommodation/FormAccommodation";
+import FormRestaurant from "./pages/registerRestaurant/FormRestaurant";
 
 function App() {
   return (
@@ -16,8 +15,8 @@ function App() {
       <Routes>
         <Route path="/infhotel" element={ <PrincipalHotel /> } />
         <Route path="/hotels" element={<PrincipalListHoteles/>}/>
-        <Route path="/registrarAloj" element={ <FormAlojamiento /> } />
-        <Route path="/registrarRestaurante" element={<FormRestaurante />} />
+        <Route path="/registrarAlojamiento" element={ <FormAccommodation /> } />
+        <Route path="/registrarRestaurante" element={<FormRestaurant />} />
       </Routes>
       </div>
     </>

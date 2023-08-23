@@ -23,7 +23,7 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
   const SuccessPopup = () => {
     return (
       <div>
-        <Popup open={openSuccess} closeOnDocumentClick onClose={closeModalSuccess}>
+        <Popup open={openSuccess} closeOnDocumentClick onClose={exitForm}>
           <div>
             <label className="modalMessage">Registro exitoso</label>
             <div style={{ textAlign: "center" }}>

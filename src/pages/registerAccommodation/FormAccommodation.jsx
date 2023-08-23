@@ -1,4 +1,4 @@
-import "./FormAlojamiento.css";
+import "./FormAccommodation.css";
 import React, { useState } from "react";
 import TextField from "../../components/Forms/TextField";
 import TextArea from "../../components/Forms/TextArea";
@@ -10,9 +10,10 @@ import RejectPopup from "../../components/Forms/Popups/RejectPopup";
 import MainButton from "../../components/Forms/MainButton";
 import OtherButton from "../../components/Forms/OtherButton";
 import EstablishmentService from "../../services/EstablishmentService";
+import { accommodationValidation } from "./AccommodationValidation";
 
 
-function FormAlojamiento() {
+function FormAccommodation() {
     // Archivos de imagen
     const [files, setFiles] = useState([]);
 
@@ -44,7 +45,20 @@ function FormAlojamiento() {
 
         const info = e.target;
 
-        if (!validateData(info)) {
+        let setters = {
+            nameAlert: setNameAlert,
+            locatNameAlert: setLocatNameAlert,
+            detailsAlert: setDetailsAlert,
+            descripAlert: setDescripAlert,
+            locatMapAlert: setLocatMapAlert,
+            timeInAlert: setTimeInAlert,
+            timeOutAlert: setTimeOutAlert,
+            priceAlert: setPriceAlert,
+            prepayAlert: setPrepayAlert,
+            filesAlert: setFilesAlert
+        }
+
+        if (!accommodationValidation(info, setters, files)) {
             return;
         }
 
@@ -58,7 +72,7 @@ function FormAlojamiento() {
         setOpenConfirm(true);
     }
 
-    function validateData(form) {
+    /*function validateData(form) {
         let validated = true;
         let allAlerts = "";
         let alert = "";
@@ -187,15 +201,12 @@ function FormAlojamiento() {
             }
         }
         return alert
-    }
+    }*/
 
     function cancelForm(e) {
         e.preventDefault()
         setOpenCancel(true)
     }
-
-    
-
 
     return (
         <div className="bodyForm">
@@ -251,4 +262,4 @@ function FormAlojamiento() {
     )
 }
 
-export default FormAlojamiento;
+export default FormAccommodation;
