@@ -7,7 +7,7 @@ export function restaurantValidation (info, setters, files) {
     let errors = {
         blankAlert: "Este campo no se puede llenar solamente con espacios",
         onlyLettersAlert: "Solo se permiten letras, comas y puntos en este campo",
-        emptyAlert: "Este campo no se pude dejar vacío",
+        emptyAlert: "Este campo no se puede dejar vacío",
         negativeAlert: "Este campo solo permite números positivos",
         closingAlert: "La hora de cierre debe ser posterior a la de apertura",
         formatImagesAlert: "Solo se permiten imágenes con extensión: jpg, png y jpeg",
