@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from 'reactjs-popup';
+import Popup from "reactjs-popup";
 import "./Popup.css";
 
 // eslint-disable-next-line react/prop-types
@@ -24,10 +24,12 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
     return (
       <div>
         <Popup open={openSuccess} closeOnDocumentClick onClose={exitForm}>
-          <div>
+          <div style={{ textAlign: "center" }}>
             <label className="modalMessage">Registro exitoso</label>
-            <div style={{ textAlign: "center" }}>
-              <button className="yesButton" onClick={exitForm}>OK</button>
+            <div>
+              <button className="yesButton" onClick={exitForm}>
+                OK
+              </button>
             </div>
           </div>
         </Popup>
@@ -37,12 +39,23 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
 
   return (
     <div>
-      <Popup open={open} closeOnDocumentClick onClose={closeModal} className="modalBackground">
-        <div className="modalContainer">
-          <label className="modalMessage">¿Está seguro de finalizar el registro?</label>
-          <div style={{ textAlign: "center" }}>
-            <button className="yesButton" onClick={confirmAction}> Si </button>
-            <button className="close noButton" onClick={closeModal}> No </button>
+      <Popup
+        open={open}
+        closeOnDocumentClick
+        onClose={closeModal}
+        className="modalBackground"
+      >
+        <div style={{ textAlign: "center" }}>
+          <label className="modalMessage">
+            ¿Está seguro de finalizar el registro?
+          </label>
+          <div>
+            <button className="yesButton" onClick={confirmAction}>
+              Si
+            </button>
+            <button className="close noButton" onClick={closeModal}>
+              No
+            </button>
           </div>
         </div>
       </Popup>
