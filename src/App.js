@@ -26,13 +26,10 @@ function App() {
       <Routes>
         <Route path="/infhotel" element={ <PrincipalHotel /> } />
         <Route path="/hotels" element={<PrincipalListHoteles/>}/>
-<<<<<<< HEAD
         <Route path="/registrarAlojamiento" element={ <FormAccommodation /> } />
         <Route path="/registrarRestaurante" element={<FormRestaurant />} />
-=======
         <Route path="/registrarAloj" element={ <FormAlojamiento /> } />
         <Route path="/recordlocation" element={<DraggableMarkerExample/>} />
->>>>>>> origin/US-3Pruebas
       </Routes>
       </div>
     </>
