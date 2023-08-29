@@ -4,10 +4,8 @@ import React from 'react';
 import PrincipalHotel from "./pages/viewInformationHotel/PrincipalHotel";
 import PrincipalListHoteles from "./pages/viewListHotes/PrincipalListHoles";
 import NavBar from "./components/NavBar";
-<<<<<<< HEAD
 import FormAccommodation from "./pages/registerAccommodation/FormAccommodation";
 import FormRestaurant from "./pages/registerRestaurant/FormRestaurant";
-=======
 import FormAlojamiento from "./pages/registroAlojamiento/FormAlojamiento";
 import DraggableMarkerExample from "./pages/locationRecord/DraggableMarkerExample";
 import Leaflet from 'leaflet'
@@ -16,7 +14,6 @@ import 'leaflet/dist/leaflet.css';
 Leaflet.Icon.Default.imagePath =
   '//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/'
 
->>>>>>> origin/US-3Pruebas
 
 function App() {
   return (

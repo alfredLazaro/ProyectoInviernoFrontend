@@ -23,21 +23,10 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
   const SuccessPopup = () => {
     return (
       <div>
-<<<<<<< HEAD:src/components/Forms/Popups/ConfirmPopup.jsx
         <Popup open={openSuccess} closeOnDocumentClick onClose={exitForm}>
           <div style={{ textAlign: "center" }}>
             <label className="modalMessage">Registro exitoso</label>
             <div>
-=======
-        <Popup
-          open={openSuccess}
-          closeOnDocumentClick
-          onClose={closeModalSuccess}
-        >
-          <div>
-            <label className="modalMessage">Registro exitoso</label>
-            <div style={{ textAlign: "center" }}>
->>>>>>> origin/US-3Pruebas:src/pages/registroAlojamiento/ConfirmationPopup.jsx
               <button className="yesButton" onClick={exitForm}>
                 OK
               </button>
@@ -56,7 +45,6 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
         onClose={closeModal}
         className="modalBackground"
       >
-<<<<<<< HEAD:src/components/Forms/Popups/ConfirmPopup.jsx
         <div style={{ textAlign: "center" }}>
           <label className="modalMessage">
             ¿Está seguro de finalizar el registro?
@@ -67,20 +55,6 @@ export default function ConfirmPopup({ open, setOpen, successActions }) {
             </button>
             <button className="close noButton" onClick={closeModal}>
               No
-=======
-        <div className="modalContainer">
-          <label className="modalMessage">
-            ¿Está seguro de finalizar el registro?
-          </label>
-          <div style={{ textAlign: "center" }}>
-            <button className="yesButton" onClick={confirmAction}>
-              {" "}
-              Si{" "}
-            </button>
-            <button className="close noButton" onClick={closeModal}>
-              {" "}
-              No{" "}
->>>>>>> origin/US-3Pruebas:src/pages/registroAlojamiento/ConfirmationPopup.jsx
             </button>
           </div>
         </div>
