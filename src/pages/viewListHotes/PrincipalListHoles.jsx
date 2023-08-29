@@ -7,7 +7,7 @@ export default function PrincipalListHoteles() {
   const [data, setPost] = useState([]);
   const [loading, setLoading] = useState(true);  
   useEffect(() => {
-    axios.get(`http://localhost:8080/inf/alojamiento`).then((response) => {
+    axios.get(`http://localhost:8080/inf/alojamiento/all`).then((response) => {
       setPost(response.data);
       console.log(response.data);
       setLoading(false);
