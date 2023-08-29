@@ -15,7 +15,8 @@ export default function ViewCarouselHotel({ imagenes, ancho, largo }) {
         height={largo}
       />
     </div>
-  ));
+      ));
+  
   return (
     <>
       <div>

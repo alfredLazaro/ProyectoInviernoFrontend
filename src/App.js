@@ -14,7 +14,8 @@ import 'leaflet/dist/leaflet.css';
 Leaflet.Icon.Default.imagePath =
   '//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/'
 
-
+import PrincipalListRestaurants from "./pages/viewListRestaurants/ViewLisRestaurants";
+import PrincipalRestaurant from "./pages/viewInfRestaurant/PrincipalRestaurant";
 function App() {
   return (
     <>
@@ -27,6 +28,8 @@ function App() {
         <Route path="/registrarRestaurante" element={<FormRestaurant />} />
         <Route path="/registrarAloj" element={ <FormAlojamiento /> } />
         <Route path="/recordlocation" element={<DraggableMarkerExample/>} />
+        <Route path="/restaurantes" element={<PrincipalListRestaurants/>}/>
+        <Route path="/infRestaurant" element={<PrincipalRestaurant/>}/>
       </Routes>
       </div>
     </>
